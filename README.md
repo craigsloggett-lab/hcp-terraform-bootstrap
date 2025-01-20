@@ -15,14 +15,21 @@ The following steps must be taken before being able to run the code in this repo
 ### HCP Terraform
 
 1. Create an HCP Terraform organization.
-2. Generate a user API token to authenticate with HCP Terraform.
-3. Run `terraform init` in this repository to create the backend workspace.
-4. Generate a team API token for the "owners" team.
-5. Create a variable set named "TFE Provider Authentication".
+2. Run `terraform login` to generate a user API token.
+3. Run `terraform init` to create the backend workspace.
+4. Manually generate a team API token for the "owners" team.
+5. Manually create a variable set named "TFE Provider Authentication".
 6. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
-7. Assign the variable set to the new workspace.
-8. Update `imports.tf` with the ID of the resources in your HCP Terraform organization.
-9. Update `locals.tf` with the ID of the resources in your HCP Terraform organization.
+7. Assign the variable set to the backend workspace.
+8. Update `locals.tf` with the ID of the resources in your HCP Terraform organization.
+
+#### Populate `locals.tf`
+
+To get a list of the relevant IDs needed to populate `locals.tf`, review and 
+run the script in [`.local/bin/get_ids.sh`](.local/bin/get_ids.sh).
+
+> [!NOTE]  
+> The `get_ids.sh` script requires that [`jq(1)`](https://jqlang.github.io/jq/) be installed.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
