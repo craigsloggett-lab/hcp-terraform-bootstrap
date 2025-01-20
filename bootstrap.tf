@@ -1,10 +1,6 @@
 resource "tfe_organization" "this" {
   name  = var.hcp_terraform_organization_name
   email = var.hcp_terraform_organization_email
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 data "tfe_team" "owners" {
@@ -12,24 +8,10 @@ data "tfe_team" "owners" {
   organization = tfe_organization.this.name
 }
 
-data "tfe_organization_membership" "api_org" {
-  organization               = tfe_organization.this.name
-  organization_membership_id = local.organization_membership_ids.api_org
-}
-
-data "tfe_organization_membership" "api_team" {
-  organization               = tfe_organization.this.name
-  organization_membership_id = local.organization_membership_ids.api_team
-}
-
-data "tfe_organization_membership" "gh_webhooks" {
-  organization               = tfe_organization.this.name
-  organization_membership_id = local.organization_membership_ids.gh_webhooks
-}
-
+# Doormat is the service used to manage HCP Terraform organizations for HashiCorp employees.
 data "tfe_organization_membership" "doormat" {
-  organization               = tfe_organization.this.name
-  organization_membership_id = local.organization_membership_ids.doormat
+  organization = tfe_organization.this.name
+  email        = "doormat@hashicorp.com"
 }
 
 data "tfe_organization_membership" "owner" {
@@ -41,9 +23,9 @@ resource "tfe_team_organization_members" "owners" {
   team_id = data.tfe_team.owners.id
   organization_membership_ids = [
     # Hidden Users
-    data.tfe_organization_membership.api_org.id,
-    data.tfe_organization_membership.api_team.id,
-    data.tfe_organization_membership.gh_webhooks.id,
+    local.hidden_users_organization_membership_ids.api_org,
+    local.hidden_users_organization_membership_ids.api_team,
+    local.hidden_users_organization_membership_ids.gh_webhooks,
     # Doormat User
     data.tfe_organization_membership.doormat.id,
     # The human who created the organization.
@@ -57,8 +39,6 @@ resource "tfe_project" "default" {
   description  = "The default project for new workspaces."
 }
 
-# The TFE provider authentication variable set must be created by hand for the first run.
-
 resource "tfe_variable_set" "tfe_provider_authentication" {
   name         = "TFE Provider Authentication"
   description  = "The token used to authenticate the TFE provider for managing this HCP Terraform organization."
@@ -69,8 +49,6 @@ resource "tfe_workspace_variable_set" "tfe_provider_authentication" {
   workspace_id    = tfe_workspace.hcp_terraform_admin.id
   variable_set_id = tfe_variable_set.tfe_provider_authentication.id
 }
-
-# The following project and workspace are created when running `terraform init` for the first time.
 
 resource "tfe_project" "platform_team" {
   name         = var.hcp_platform_team_project_name
