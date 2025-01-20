@@ -10,10 +10,10 @@ variable "hcp_terraform_organization_email" {
   default     = "craig.sloggett@hashicorp.com"
 }
 
-variable "hcp_terraform_admins_team_name" {
+variable "hcp_terraform_admin_workspace_name" {
   type        = string
-  description = "The name of the team of users who administer the HCP Terraform organization."
-  default     = "admins"
+  description = "The name of the workspace used to manage this HCP Terraform organization."
+  default     = "hcp-terraform-admin"
 }
 
 variable "hcp_platform_team_project_name" {
@@ -22,10 +22,10 @@ variable "hcp_platform_team_project_name" {
   default     = "Platform Team"
 }
 
-variable "hcp_terraform_admin_workspace_name" {
+variable "hcp_terraform_admins_team_name" {
   type        = string
-  description = "The name of the workspace used to manage this HCP Terraform organization."
-  default     = "hcp-terraform-admin"
+  description = "The name of the team of users who administer the HCP Terraform organization."
+  default     = "admins"
 }
 
 variable "terraform_version" {
