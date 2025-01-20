@@ -1,36 +1,34 @@
-# When migrating this code base to a new organization, these IDs will need to be updated.
-
 import {
-  id = "craigsloggett-lab" # Organizations can only be imported by name.
+  id = var.hcp_terraform_organization_name # Organizations can only be imported by name.
   to = tfe_organization.this
 }
 
 import {
-  id = "team-p9ryLNrpQ9TNmEFh"
+  id = local.owners_team_id
   to = tfe_team_organization_members.owners
 }
 
 import {
-  id = "prj-1ifijXyay7xeH9Zc"
+  id = local.default_project_id
   to = tfe_project.default
 }
 
 import {
-  id = "prj-qW7NitPW1R49WN4b"
-  to = tfe_project.platform_team
-}
-
-import {
-  id = "varset-FwFGK65suTr7eaAA"
+  id = local.tfe_provider_authentication_variable_set_id
   to = tfe_variable_set.tfe_provider_authentication
 }
 
 import {
-  id = "craigsloggett-lab/hcp-terraform-admin/TFE Provider Authentication"
+  id = local.tfe_provider_authentication_workspace_variable_set_id
   to = tfe_workspace_variable_set.tfe_provider_authentication
 }
 
 import {
-  id = "ws-aAUcuGF6QEJKuQyL"
+  id = local.hcp_platform_team_project_id
+  to = tfe_project.platform_team
+}
+
+import {
+  id = local.hcp_terraform_admin_workspace_id
   to = tfe_workspace.hcp_terraform_admin
 }
