@@ -22,11 +22,15 @@ resource "tfe_team" "admins" {
   }
 }
 
+data "tfe_organization_membership" "admins" {
+  for_each     = local.admins
+  organization = tfe_organization.this.name
+  email        = each.key
+}
+
 resource "tfe_team_organization_members" "admins" {
-  team_id = tfe_team.admins.id
-  organization_membership_ids = [
-    data.tfe_organization_membership.owner.id
-  ]
+  team_id                     = tfe_team.admins.id
+  organization_membership_ids = [for member in local.admins : data.tfe_organization_membership.admins[member].id]
 }
 
 resource "tfe_team_project_access" "admins" {
