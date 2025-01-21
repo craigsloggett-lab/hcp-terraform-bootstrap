@@ -2,7 +2,6 @@ locals {
   imports = {
     teams = {
       owners = {
-        id = "team-p9ryLNrpQ9TNmEFh"
         members = {
           craigsloggett = {
             email                      = "craig.sloggett@hashicorp.com"
@@ -42,7 +41,8 @@ locals {
     }
     variable_sets = {
       tfe_provider_authentication = {
-        id   = "varset-FwFGK65suTr7eaAA"
+        id = "varset-FwFGK65suTr7eaAA"
+        # TODO: Move this to variables.
         name = "TFE Provider Authentication"
       }
     }

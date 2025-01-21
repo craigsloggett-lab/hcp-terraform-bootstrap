@@ -5,6 +5,11 @@ resource "tfe_organization" "this" {
   assessments_enforced = true
 }
 
+resource "tfe_team" "owners" {
+  name         = "owners"
+  organization = tfe_organization.this.name
+}
+
 resource "tfe_organization_membership" "owners" {
   for_each     = local.imports.teams.owners.members
   organization = tfe_organization.this.name
@@ -12,7 +17,7 @@ resource "tfe_organization_membership" "owners" {
 }
 
 resource "tfe_team_organization_members" "owners" {
-  team_id = local.imports.teams.owners.id
+  team_id = tfe_team.owners.id
   organization_membership_ids = [
     for username, attributes in local.imports.teams.owners.members : tfe_organization_membership.owners[username].id
   ]
@@ -22,17 +27,6 @@ resource "tfe_project" "default" {
   name         = "Default Project"
   organization = tfe_organization.this.name
   description  = "The default project for new workspaces."
-}
-
-resource "tfe_variable_set" "tfe_provider_authentication" {
-  name         = local.imports.variable_sets.tfe_provider_authentication.name
-  description  = "The token used to authenticate the TFE provider for managing this HCP Terraform organization."
-  organization = tfe_organization.this.name
-}
-
-resource "tfe_workspace_variable_set" "tfe_provider_authentication" {
-  workspace_id    = tfe_workspace.hcp_terraform_admin.id
-  variable_set_id = tfe_variable_set.tfe_provider_authentication.id
 }
 
 resource "tfe_project" "platform_team" {
@@ -48,4 +42,15 @@ resource "tfe_workspace" "hcp_terraform_admin" {
 
   terraform_version = var.terraform_version
   queue_all_runs    = false
+}
+
+resource "tfe_variable_set" "tfe_provider_authentication" {
+  name         = local.imports.variable_sets.tfe_provider_authentication.name
+  description  = "The token used to authenticate the TFE provider for managing this HCP Terraform organization."
+  organization = tfe_organization.this.name
+}
+
+resource "tfe_workspace_variable_set" "tfe_provider_authentication" {
+  workspace_id    = tfe_workspace.hcp_terraform_admin.id
+  variable_set_id = tfe_variable_set.tfe_provider_authentication.id
 }
