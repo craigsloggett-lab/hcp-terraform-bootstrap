@@ -1,35 +1,20 @@
 resource "tfe_organization" "this" {
   name  = var.hcp_terraform_organization_name
   email = var.hcp_terraform_organization_email
+
+  assessments_enforced = true
 }
 
-data "tfe_team" "owners" {
-  name         = "owners"
+resource "tfe_organization_membership" "owners" {
+  for_each     = local.imports.teams.owners.members
   organization = tfe_organization.this.name
-}
-
-# Doormat is the service used to manage HCP Terraform organizations for HashiCorp employees.
-data "tfe_organization_membership" "doormat" {
-  organization = tfe_organization.this.name
-  email        = "doormat@hashicorp.com"
-}
-
-data "tfe_organization_membership" "owner" {
-  organization = tfe_organization.this.name
-  email        = var.hcp_terraform_organization_email
+  email        = each.value.email
 }
 
 resource "tfe_team_organization_members" "owners" {
-  team_id = data.tfe_team.owners.id
+  team_id = local.imports.teams.owners.id
   organization_membership_ids = [
-    # Hidden Users
-    local.hidden_users_organization_membership_ids.api_org,
-    local.hidden_users_organization_membership_ids.api_team,
-    local.hidden_users_organization_membership_ids.gh_webhooks,
-    # Doormat User
-    data.tfe_organization_membership.doormat.id,
-    # The human who created the organization.
-    data.tfe_organization_membership.owner.id
+    for username, attributes in local.imports.teams.owners.members : tfe_organization_membership.owners[username].id
   ]
 }
 
@@ -40,7 +25,7 @@ resource "tfe_project" "default" {
 }
 
 resource "tfe_variable_set" "tfe_provider_authentication" {
-  name         = "TFE Provider Authentication"
+  name         = local.imports.variable_sets.tfe_provider_authentication.name
   description  = "The token used to authenticate the TFE provider for managing this HCP Terraform organization."
   organization = tfe_organization.this.name
 }
