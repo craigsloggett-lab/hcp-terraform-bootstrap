@@ -60,29 +60,31 @@ No modules.
 | Name | Type |
 |------|------|
 | [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/organization) | resource |
+| [tfe_organization_membership.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/organization_membership) | resource |
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/project) | resource |
 | [tfe_project.platform_team](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/project) | resource |
 | [tfe_team.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/team) | resource |
+| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/team) | resource |
 | [tfe_team_organization_members.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_project_access.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/team_project_access) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/variable_set) | resource |
 | [tfe_workspace.hcp_terraform_admin](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace_variable_set) | resource |
-| [tfe_organization_membership.doormat](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/organization_membership) | data source |
-| [tfe_organization_membership.owner](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/organization_membership) | data source |
-| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/team) | data source |
+| [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/organization_membership) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_admins_team_emails"></a> [admins\_team\_emails](#input\_admins\_team\_emails) | A list of member email addresses for the admins team. | `set(string)` | `[]` | no |
 | <a name="input_hcp_platform_team_project_name"></a> [hcp\_platform\_team\_project\_name](#input\_hcp\_platform\_team\_project\_name) | The name of the project used to manage HashiCorp Cloud Platform services. | `string` | `"Platform Team"` | no |
 | <a name="input_hcp_terraform_admin_workspace_name"></a> [hcp\_terraform\_admin\_workspace\_name](#input\_hcp\_terraform\_admin\_workspace\_name) | The name of the workspace used to manage this HCP Terraform organization. | `string` | `"hcp-terraform-admin"` | no |
 | <a name="input_hcp_terraform_admins_team_name"></a> [hcp\_terraform\_admins\_team\_name](#input\_hcp\_terraform\_admins\_team\_name) | The name of the team of users who administer the HCP Terraform organization. | `string` | `"admins"` | no |
 | <a name="input_hcp_terraform_organization_email"></a> [hcp\_terraform\_organization\_email](#input\_hcp\_terraform\_organization\_email) | The notification email address for the HCP Terraform organization being managed. | `string` | n/a | yes |
 | <a name="input_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#input\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform organization being managed. | `string` | n/a | yes |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use in all workspaces. | `string` | `"1.10.3"` | no |
+| <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to offer authentication to the TFE provider. | `string` | `"TFE Provider Authentication"` | no |
 
 ## Outputs
 
