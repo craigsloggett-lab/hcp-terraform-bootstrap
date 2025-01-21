@@ -20,6 +20,12 @@ variable "hcp_platform_team_project_name" {
   default     = "Platform Team"
 }
 
+variable "tfe_provider_authentication_variable_set_name" {
+  type        = string
+  description = "The name of the variable set used to offer authentication to the TFE provider."
+  default     = "TFE Provider Authentication"
+}
+
 variable "hcp_terraform_admins_team_name" {
   type        = string
   description = "The name of the team of users who administer the HCP Terraform organization."

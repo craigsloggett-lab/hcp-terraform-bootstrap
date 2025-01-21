@@ -11,15 +11,15 @@ resource "tfe_team" "owners" {
 }
 
 resource "tfe_organization_membership" "owners" {
-  for_each     = local.imports.teams.owners.members
+  for_each     = local.imports.organization_membership_ids
   organization = tfe_organization.this.name
-  email        = each.value.email
+  email        = each.key
 }
 
 resource "tfe_team_organization_members" "owners" {
   team_id = tfe_team.owners.id
   organization_membership_ids = [
-    for username, attributes in local.imports.teams.owners.members : tfe_organization_membership.owners[username].id
+    for email, id in local.imports.organization_membership_ids : tfe_organization_membership.owners[email].id
   ]
 }
 
@@ -45,7 +45,7 @@ resource "tfe_workspace" "hcp_terraform_admin" {
 }
 
 resource "tfe_variable_set" "tfe_provider_authentication" {
-  name         = local.imports.variable_sets.tfe_provider_authentication.name
+  name         = var.tfe_provider_authentication_variable_set_name
   description  = "The token used to authenticate the TFE provider for managing this HCP Terraform organization."
   organization = tfe_organization.this.name
 }
