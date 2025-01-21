@@ -32,6 +32,12 @@ variable "hcp_terraform_admins_team_name" {
   default     = "admins"
 }
 
+variable "admins_team_emails" {
+  description = "A list of member email addresses for the admins team."
+  type        = set(string)
+  default     = []
+}
+
 variable "terraform_version" {
   type        = string
   description = "The version of Terraform to use in all workspaces."

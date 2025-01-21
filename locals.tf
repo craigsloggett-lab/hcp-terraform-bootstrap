@@ -18,8 +18,4 @@ locals {
       tfe_provider_authentication = "varset-FwFGK65suTr7eaAA"
     }
   }
-  # TODO: Move this to variables.
-  admins = toset([
-    "craig.sloggett@hashicorp.com",
-  ])
 }
