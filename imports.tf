@@ -19,33 +19,33 @@ import {
 # The organization membership of each user that comes with the HCP Terraform organization.
 # These users are all placed in the `owners` team by default.
 import {
-  for_each = local.imports.teams.owners.members
-  id       = each.value.organization_membership_id
+  for_each = local.imports.organization_membership_ids
+  id       = each.value
   to       = tfe_organization_membership.owners[each.key]
 }
 
 # The `Default Project` project.
 import {
-  id = local.imports.projects.default_project.id
+  id = local.imports.project_ids.default_project
   to = tfe_project.default
 }
 
 # The project that is configured in `backend.tf`.
 import {
-  id = local.imports.projects.platform_team.id
+  id = local.imports.project_ids.platform_team
   to = tfe_project.platform_team
 }
 
 # The workspace that is configured in `backend.tf`.
 import {
-  id = local.imports.workspaces.hcp_terraform_admin.id
+  id = local.imports.workspace_ids.hcp_terraform_admin
   to = tfe_workspace.hcp_terraform_admin
 }
 
 # The `TFE Provider Authentication` variable set. 
 # This contains the `TFE_TOKEN` for managing this organization in the workspace configured in `backend.tf`.
 import {
-  id = local.imports.variable_sets.tfe_provider_authentication.id
+  id = local.imports.variable_set_ids.tfe_provider_authentication
   to = tfe_variable_set.tfe_provider_authentication
 }
 
@@ -54,7 +54,7 @@ import {
   id = join("/", [
     var.hcp_terraform_organization_name,
     tfe_workspace.hcp_terraform_admin.name,
-    local.imports.variable_sets.tfe_provider_authentication.name,
+    "TFE Provider Authentication",
   ])
   to = tfe_workspace_variable_set.tfe_provider_authentication
 }
