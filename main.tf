@@ -23,14 +23,14 @@ resource "tfe_team" "admins" {
 }
 
 data "tfe_organization_membership" "admins" {
-  for_each     = local.admins
+  for_each     = var.admins_team_emails
   organization = tfe_organization.this.name
   email        = each.key
 }
 
 resource "tfe_team_organization_members" "admins" {
   team_id                     = tfe_team.admins.id
-  organization_membership_ids = [for member in local.admins : data.tfe_organization_membership.admins[member].id]
+  organization_membership_ids = [for email in var.admins_team_emails : data.tfe_organization_membership.admins[email].id]
 }
 
 resource "tfe_team_project_access" "admins" {
