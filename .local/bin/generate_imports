@@ -32,7 +32,6 @@ owners_team_id="$(
     jq -r '.data[] | select(.attributes.name == "owners") | .id'
 )"
 
-# Display the organization membership IDs.
 curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
   --header "Content-Type: application/vnd.api+json" \
