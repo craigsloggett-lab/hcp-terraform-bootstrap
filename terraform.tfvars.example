@@ -9,6 +9,10 @@ tfe_provider_authentication_variable_set_name = "TFE Provider Authentication"
 hcp_terraform_admins_team_name                = "admins"
 terraform_version                             = "1.10.3"
 
+owners_team_emails = [
+  "craig.sloggett@hashicorp.com",
+]
+
 admins_team_emails = [
   "craig.sloggett@hashicorp.com",
 ]

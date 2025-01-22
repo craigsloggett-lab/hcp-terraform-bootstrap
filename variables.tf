@@ -26,6 +26,12 @@ variable "tfe_provider_authentication_variable_set_name" {
   default     = "TFE Provider Authentication"
 }
 
+variable "owners_team_emails" {
+  description = "A list of member email addresses for the owners team."
+  type        = set(string)
+  default     = []
+}
+
 variable "hcp_terraform_admins_team_name" {
   type        = string
   description = "The name of the team of users who administer the HCP Terraform organization."

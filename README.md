@@ -25,17 +25,20 @@ The following steps must be taken before being able to run the code in this repo
 
 #### Populate `locals.tf`
 
-To get a list of the relevant IDs needed to populate `locals.tf`, review and 
-run the script in [`.local/bin/get_ids.sh`](.local/bin/get_ids.sh):
+To get a list of the relevant IDs needed to populate `imports.tf`, review and 
+run the script in [`.local/bin/generate_imports`](.local/bin/generate_imports):
 
 ```sh
-export TF_TOKEN="HCP_TERRAFORM_API_TOKEN"
-export TF_ORG_NAME="HCP_TERRAFORM_ORGANIZATION_NAME"
-/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/get_ids.sh)"
+export TF_TOKEN=""
 ```
 
-> [!NOTE]  
-> The `get_ids.sh` script requires that [`jq(1)`](https://jqlang.github.io/jq/) be installed.
+```sh
+export TF_ORG_NAME=""
+```
+
+```sh
+/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_imports)"
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
