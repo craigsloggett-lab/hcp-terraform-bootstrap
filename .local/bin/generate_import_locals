@@ -19,14 +19,16 @@ tfvars_path="${script_path}/../../terraform.tfvars"
 import_locals_path="${tfvars_path}/import_locals.tf"
 
 [ -f "${tfvars_path}" ] || {
-  echo "Error: terraform.tfvars not found, unable to get the organization name." >&2
+  printf '%s\n' "Error: ${tfvars_path} not found, unable to get the organization name." >&2
   exit 1
 }
 
 organization_name="$(grep '^hcp_terraform_organization_name' "${tfvars_path}" | cut -d'=' -f2 | tr -d ' "')"
 
 # Clear the `imports.tf` file.
-: >"${import_locals_path}"
+[ -f "${import_locals_path}" ] || {
+  : >"${import_locals_path}"
+}
 
 {
   printf '%s\n' "locals {"
