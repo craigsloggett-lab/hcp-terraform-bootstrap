@@ -93,5 +93,7 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_available_registry_gpg_keys"></a> [available\_registry\_gpg\_keys](#output\_available\_registry\_gpg\_keys) | A list of all of the GPG keys in this organization. |
 <!-- END_TF_DOCS -->
