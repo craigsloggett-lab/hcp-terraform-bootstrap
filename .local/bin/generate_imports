@@ -32,7 +32,7 @@ owners_team_id="$(
     jq -r '.data[] | select(.attributes.name == "owners") | .id'
 )"
 
-curl --silent \
+email="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
   --header "Content-Type: application/vnd.api+json" \
   https://app.terraform.io/api/v2/teams/"${owners_team_id}" |
@@ -43,8 +43,10 @@ curl --silent \
       --header "Content-Type: application/vnd.api+json" \
       https://app.terraform.io/api/v2/organization-memberships/"${organization_membership_id}" |
       jq -r '.data.attributes.email')"
-    printf '%s %s\n' "${email}" "${organization_membership_id}"
-  done
+    printf '"%s" = "%s"\n' "${email}" "${organization_membership_id}"
+  done)"
+
+printf '%s\n' "${email}" >"${script_path}/imports.tf"
 
 curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
