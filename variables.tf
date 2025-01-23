@@ -1,3 +1,5 @@
+# Bootstrap configuration.
+
 variable "hcp_terraform_organization_name" {
   type        = string
   description = "The name of the HCP Terraform organization being managed."
@@ -29,9 +31,11 @@ variable "terraform_version" {
   default     = "1.10.3"
 }
 
+# Organization configuration.
+
 variable "owners_team_emails" {
-  description = "A list of member email addresses for the owners team."
   type        = set(string)
+  description = "A list of member email addresses for the owners team."
   default     = []
 }
 
@@ -42,7 +46,7 @@ variable "hcp_terraform_admins_team_name" {
 }
 
 variable "admins_team_emails" {
-  description = "A list of member email addresses for the admins team."
   type        = set(string)
+  description = "A list of member email addresses for the admins team."
   default     = []
 }
