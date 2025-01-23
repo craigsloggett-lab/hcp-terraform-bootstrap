@@ -4,15 +4,15 @@ resource "tfe_team" "owners" {
 }
 
 resource "tfe_organization_membership" "owners" {
-  for_each     = local.imports.organization_membership_ids
+  for_each     = local.owners_team_emails
   organization = tfe_organization.this.name
-  email        = each.key
+  email        = each.value
 }
 
 resource "tfe_team_organization_members" "owners" {
   team_id = tfe_team.owners.id
   organization_membership_ids = [
-    for email, id in local.imports.organization_membership_ids : tfe_organization_membership.owners[email].id
+    for email in local.owners_team_emails : tfe_organization_membership.owners[email].id
   ]
 }
 

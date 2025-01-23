@@ -21,21 +21,24 @@ The following steps must be taken before being able to run the code in this repo
 5. Manually create a variable set named "TFE Provider Authentication".
 6. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
 7. Assign the variable set to the backend workspace.
-8. Update `locals.tf` with the ID of the resources in your HCP Terraform organization.
+8. Generate a `import_locals.tf` with the IDs of the resources in your HCP Terraform organization.
 
-#### Populate `locals.tf`
+#### Populate `import_locals.tf`
 
-To get a list of the relevant IDs needed to populate `locals.tf`, review and 
-run the script in [`.local/bin/get_ids.sh`](.local/bin/get_ids.sh):
+To generate a `locals` block containing the IDs of the resources to bring under
+management, review and run the script in [`.local/bin/generate_import_locals`](.local/bin/generate_import_locals):
 
 ```sh
-export TF_TOKEN="HCP_TERRAFORM_API_TOKEN"
-export TF_ORG_NAME="HCP_TERRAFORM_ORGANIZATION_NAME"
-/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/get_ids.sh)"
+export TF_TOKEN=""
 ```
 
-> [!NOTE]  
-> The `get_ids.sh` script requires that [`jq(1)`](https://jqlang.github.io/jq/) be installed.
+```sh
+export TF_ORG_NAME=""
+```
+
+```sh
+/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_imports)"
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -72,6 +75,7 @@ No modules.
 | [tfe_workspace.hcp_terraform_admin](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace_variable_set) | resource |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/organization_membership) | data source |
+| [tfe_registry_gpg_keys.all](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/registry_gpg_keys) | data source |
 
 ## Inputs
 
@@ -83,10 +87,13 @@ No modules.
 | <a name="input_hcp_terraform_admins_team_name"></a> [hcp\_terraform\_admins\_team\_name](#input\_hcp\_terraform\_admins\_team\_name) | The name of the team of users who administer the HCP Terraform organization. | `string` | `"admins"` | no |
 | <a name="input_hcp_terraform_organization_email"></a> [hcp\_terraform\_organization\_email](#input\_hcp\_terraform\_organization\_email) | The notification email address for the HCP Terraform organization being managed. | `string` | n/a | yes |
 | <a name="input_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#input\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform organization being managed. | `string` | n/a | yes |
+| <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A list of member email addresses for the owners team. | `set(string)` | `[]` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use in all workspaces. | `string` | `"1.10.3"` | no |
 | <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to offer authentication to the TFE provider. | `string` | `"TFE Provider Authentication"` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_available_registry_gpg_keys"></a> [available\_registry\_gpg\_keys](#output\_available\_registry\_gpg\_keys) | A list of all of the GPG keys in this organization. |
 <!-- END_TF_DOCS -->
