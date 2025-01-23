@@ -21,23 +21,19 @@ The following steps must be taken before being able to run the code in this repo
 5. Manually create a variable set named "TFE Provider Authentication".
 6. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
 7. Assign the variable set to the backend workspace.
-8. Generate a `import_locals.tf` with the IDs of the resources in your HCP Terraform organization.
+8. Generate a `locals_imports.tf` file with the IDs of the resources in your HCP Terraform organization.
 
-#### Populate `import_locals.tf`
+#### Generate `locals_imports.tf`
 
 To generate a `locals` block containing the IDs of the resources to bring under
-management, review and run the script in [`.local/bin/generate_import_locals`](.local/bin/generate_import_locals):
+management, review and run the script in [`.local/bin/generate_locals_imports`](.local/bin/generate_locals_imports):
 
 ```sh
-export TF_TOKEN=""
+export TF_TOKEN_app_terraform_io=""
 ```
 
 ```sh
-export TF_ORG_NAME=""
-```
-
-```sh
-/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_imports)"
+/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_locals_imports)"
 ```
 
 <!-- BEGIN_TF_DOCS -->

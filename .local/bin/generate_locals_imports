@@ -10,13 +10,13 @@ for utility in jq terraform; do
   }
 done
 
-# Check if the required `TF_TOKEN` environment variable is set.
-tf_token="${TF_TOKEN:?'parameter is null or not set. Use export TF_TOKEN="" to set this parameter.'}"
+# Check if the required `TF_TOKEN_app_terraform_io` environment variable is set.
+tf_token="${TF_TOKEN_app_terraform_io:?'parameter is null or not set. Use export TF_TOKEN_app_terraform_io="" to set this parameter.'}"
 
 # Get the HCP Terraform organization name from the required `hcp_terraform_organization_name` terraform variable.
 script_path="$(cd "$(dirname "$0")" && pwd)"
 tfvars_path="${script_path}/../../terraform.tfvars"
-import_locals_path="${script_path}/../../import_locals.tf"
+locals_imports_path="${script_path}/../../locals_imports.tf"
 
 [ -f "${tfvars_path}" ] || {
   printf '%s\n' "Error: ${tfvars_path} not found, unable to get the organization name." >&2
@@ -25,13 +25,13 @@ import_locals_path="${script_path}/../../import_locals.tf"
 
 organization_name="$(grep '^hcp_terraform_organization_name' "${tfvars_path}" | cut -d'=' -f2 | tr -d ' "')"
 
-# Clear the `imports.tf` file.
-: >"${import_locals_path}"
+# Clear the `locals_imports.tf` file.
+: >"${locals_imports_path}"
 
 {
   printf '%s\n' "locals {"
   printf '%s\n' "imports = {"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 owners_team_id="$(
   curl --silent \
@@ -45,7 +45,7 @@ owners_team_id="$(
   printf '%s\n' "team_ids = {"
   printf '%s = "%s"\n' "owners" "${owners_team_id}"
   printf '%s\n' "}"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 owners_team_organization_membership_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
@@ -66,7 +66,7 @@ owners_team_organization_membership_ids="$(curl --silent \
   printf '%s\n' "owners = {"
   printf '%s\n' "${owners_team_organization_membership_ids}"
   printf '%s\n%s\n' "}" "}"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 project_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
@@ -86,7 +86,7 @@ project_ids="$(curl --silent \
   printf '%s\n' "project_ids = {"
   printf '%s\n' "${project_ids}"
   printf '%s\n' "}"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 variable_set_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
@@ -106,7 +106,7 @@ variable_set_ids="$(curl --silent \
   printf '%s\n' "variable_set_ids = {"
   printf '%s\n' "${variable_set_ids}"
   printf '%s\n' "}"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 workspace_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
@@ -126,11 +126,11 @@ workspace_ids="$(curl --silent \
   printf '%s\n' "workspace_ids = {"
   printf '%s\n' "${workspace_ids}"
   printf '%s\n' "}"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 {
   printf '%s\n%s\n' "}" "}"
-} >>"${import_locals_path}"
+} >>"${locals_imports_path}"
 
 # Format the `locals` block.
-terraform fmt "${import_locals_path}"
+terraform fmt "${locals_imports_path}"
