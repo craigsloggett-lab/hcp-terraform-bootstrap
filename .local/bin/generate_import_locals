@@ -2,11 +2,13 @@
 
 set -eu
 
-# Check if the required utility `jq` is installed.
-command -v jq >/dev/null || {
-  echo "Error: jq is not installed." >&2
-  exit 1
-}
+# Check if the required utilities are installed.
+for utility in jq terraform; do
+  command -v "${utility}" >/dev/null || {
+    printf '%s\n' "Error: ${utility} is not installed." >&2
+    exit 1
+  }
+done
 
 # Check if the required `TF_TOKEN` environment variable is set.
 tf_token="${TF_TOKEN:?'parameter is null or not set. Use export TF_TOKEN="" to set this parameter.'}"
@@ -14,6 +16,7 @@ tf_token="${TF_TOKEN:?'parameter is null or not set. Use export TF_TOKEN="" to s
 # Get the HCP Terraform organization name from the required `hcp_terraform_organization_name` terraform variable.
 script_path="$(cd "$(dirname "$0")" && pwd)"
 tfvars_path="${script_path}/../../terraform.tfvars"
+locals_path="${tfvars_path}/locals_imports.tf"
 
 [ -f "${tfvars_path}" ] || {
   echo "Error: terraform.tfvars not found, unable to get the organization name." >&2
@@ -22,8 +25,14 @@ tfvars_path="${script_path}/../../terraform.tfvars"
 
 organization_name="$(grep '^hcp_terraform_organization_name' "${tfvars_path}" | cut -d'=' -f2 | tr -d ' "')"
 
-# The owners team ID is used in the organization membership ID query, so
-# we assign it to a variable.
+# Clear the `imports.tf` file.
+: >"${locals_path}"
+
+{
+  printf '%s\n' "locals {"
+  printf '%s\n' "imports = {"
+} >>"${locals_path}"
+
 owners_team_id="$(
   curl --silent \
     --header "Authorization: Bearer ${tf_token}" \
@@ -32,7 +41,13 @@ owners_team_id="$(
     jq -r '.data[] | select(.attributes.name == "owners") | .id'
 )"
 
-email="$(curl --silent \
+{
+  printf '%s\n' "team_ids = {"
+  printf '%s = "%s"\n' "owners" "${owners_team_id}"
+  printf '%s\n' "}"
+} >>"${locals_path}"
+
+owners_team_organization_membership_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
   --header "Content-Type: application/vnd.api+json" \
   https://app.terraform.io/api/v2/teams/"${owners_team_id}" |
@@ -46,9 +61,14 @@ email="$(curl --silent \
     printf '"%s" = "%s"\n' "${email}" "${organization_membership_id}"
   done)"
 
-printf '%s\n' "${email}" >"${script_path}/imports.tf"
+{
+  printf '%s\n' "organization_membership_ids = {"
+  printf '%s\n' "owners = {"
+  printf '%s\n' "${owners_team_organization_membership_ids}"
+  printf '%s\n%s\n' "}" "}"
+} >>"${locals_path}"
 
-curl --silent \
+project_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
   --header "Content-Type: application/vnd.api+json" \
   https://app.terraform.io/api/v2/organizations/"${organization_name}"/projects |
@@ -59,24 +79,16 @@ curl --silent \
       --header "Content-Type: application/vnd.api+json" \
       https://app.terraform.io/api/v2/projects/"${project_id}" |
       jq -r '.data.attributes.name')"
-    printf '%s %s\n' "${project_id}" "${project_name}"
-  done
+    printf '"%s" = "%s"\n' "${project_name}" "${project_id}"
+  done)"
 
-curl --silent \
-  --header "Authorization: Bearer ${tf_token}" \
-  --header "Content-Type: application/vnd.api+json" \
-  https://app.terraform.io/api/v2/organizations/"${organization_name}"/workspaces |
-  jq -r '.data[].id' |
-  while read -r workspace_id; do
-    workspace_name="$(curl --silent \
-      --header "Authorization: Bearer ${tf_token}" \
-      --header "Content-Type: application/vnd.api+json" \
-      https://app.terraform.io/api/v2/workspaces/"${workspace_id}" |
-      jq -r '.data.attributes.name')"
-    printf '%s %s\n' "${workspace_id}" "${workspace_name}"
-  done
+{
+  printf '%s\n' "project_ids = {"
+  printf '%s\n' "${project_ids}"
+  printf '%s\n' "}"
+} >>"${locals_path}"
 
-curl --silent \
+variable_set_ids="$(curl --silent \
   --header "Authorization: Bearer ${tf_token}" \
   --header "Content-Type: application/vnd.api+json" \
   https://app.terraform.io/api/v2/organizations/"${organization_name}"/varsets |
@@ -87,5 +99,37 @@ curl --silent \
       --header "Content-Type: application/vnd.api+json" \
       https://app.terraform.io/api/v2/varsets/"${variable_set_id}" |
       jq -r '.data.attributes.name')"
-    printf '%s %s\n' "${variable_set_id}" "${variable_set_name}"
-  done
+    printf '"%s" = "%s"\n' "${variable_set_name}" "${variable_set_id}"
+  done)"
+
+{
+  printf '%s\n' "variable_set_ids = {"
+  printf '%s\n' "${variable_set_ids}"
+  printf '%s\n' "}"
+} >>"${locals_path}"
+
+workspace_ids="$(curl --silent \
+  --header "Authorization: Bearer ${tf_token}" \
+  --header "Content-Type: application/vnd.api+json" \
+  https://app.terraform.io/api/v2/organizations/"${organization_name}"/workspaces |
+  jq -r '.data[].id' |
+  while read -r workspace_id; do
+    workspace_name="$(curl --silent \
+      --header "Authorization: Bearer ${tf_token}" \
+      --header "Content-Type: application/vnd.api+json" \
+      https://app.terraform.io/api/v2/workspaces/"${workspace_id}" |
+      jq -r '.data.attributes.name')"
+    printf '%s = "%s"\n' "${workspace_name}" "${workspace_id}"
+  done)"
+
+{
+  printf '%s\n' "workspace_ids = {"
+  printf '%s\n' "${workspace_ids}"
+  printf '%s\n' "}"
+} >>"${locals_path}"
+
+{
+  printf '%s\n%s\n' "}" "}"
+} >>"${locals_path}"
+
+terraform fmt "${script_path}/."
