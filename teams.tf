@@ -1,20 +1,4 @@
-resource "tfe_team" "owners" {
-  name         = "owners"
-  organization = tfe_organization.this.name
-}
-
-resource "tfe_organization_membership" "owners" {
-  for_each     = local.owners_team_emails
-  organization = tfe_organization.this.name
-  email        = each.value
-}
-
-resource "tfe_team_organization_members" "owners" {
-  team_id = tfe_team.owners.id
-  organization_membership_ids = [
-    for email in local.owners_team_emails : tfe_organization_membership.owners[email].id
-  ]
-}
+# The `owners` team resources can be found in `bootstrap.tf`.
 
 resource "tfe_team" "admins" {
   name         = var.hcp_terraform_admins_team_name
@@ -51,8 +35,9 @@ resource "tfe_team_organization_members" "admins" {
   organization_membership_ids = [for email in var.admins_team_emails : data.tfe_organization_membership.admins[email].id]
 }
 
+# Provide admin access to the project configured in `backend.tf`.
 resource "tfe_team_project_access" "admins" {
   access     = "admin"
   team_id    = tfe_team.admins.id
-  project_id = tfe_project.platform_team.id
+  project_id = tfe_project.backend.id
 }
