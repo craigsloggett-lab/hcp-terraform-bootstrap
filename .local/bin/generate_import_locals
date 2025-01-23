@@ -16,7 +16,7 @@ tf_token="${TF_TOKEN:?'parameter is null or not set. Use export TF_TOKEN="" to s
 # Get the HCP Terraform organization name from the required `hcp_terraform_organization_name` terraform variable.
 script_path="$(cd "$(dirname "$0")" && pwd)"
 tfvars_path="${script_path}/../../terraform.tfvars"
-import_locals_path="${tfvars_path}/import_locals.tf"
+import_locals_path="${script_path}/../../import_locals.tf"
 
 [ -f "${tfvars_path}" ] || {
   printf '%s\n' "Error: ${tfvars_path} not found, unable to get the organization name." >&2
@@ -26,9 +26,7 @@ import_locals_path="${tfvars_path}/import_locals.tf"
 organization_name="$(grep '^hcp_terraform_organization_name' "${tfvars_path}" | cut -d'=' -f2 | tr -d ' "')"
 
 # Clear the `imports.tf` file.
-[ -f "${import_locals_path}" ] || {
-  : >"${import_locals_path}"
-}
+: >"${import_locals_path}"
 
 {
   printf '%s\n' "locals {"
