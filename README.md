@@ -108,6 +108,7 @@ No modules.
 | [tfe_team_project_access.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/team_project_access) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/variable_set) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace) | resource |
+| [tfe_workspace.terraform_aws_tfe_fdo_docker_active_active](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/resources/workspace_variable_set) | resource |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/organization_membership) | data source |
 | [tfe_registry_gpg_keys.all](https://registry.terraform.io/providers/hashicorp/tfe/0.62.0/docs/data-sources/registry_gpg_keys) | data source |
