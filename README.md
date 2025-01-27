@@ -2,6 +2,8 @@
 
 An infrastructure as code repository to manage an HCP Terraform organization.
 
+TEST
+
 ## Manual Setup
 
 The following steps must be taken before being able to run the code in this repository.
