@@ -2,8 +2,6 @@
 
 An infrastructure as code repository to manage an HCP Terraform organization.
 
-TEST
-
 ## Manual Setup
 
 The following steps must be taken before being able to run the code in this repository.
@@ -30,50 +28,69 @@ The following steps must be taken before being able to run the code in this repo
 To generate a `locals` block containing the IDs of the resources to bring under
 management, review and run the script in [`.local/bin/generate_locals_imports`](.local/bin/generate_locals_imports):
 
-#### VCS Integration with GitHub
-
-
-1. Login to the organization with a user who has access to the GitHub organization you want to configure 
-   a VCS provider for.
-2. Navigate to Workspaces -> New -> Workspace
-3. Select "Default Project"
-4. Select Version Control Workflow
-5. Select GitHub -> GitHub.com
-6. Complete the authorization flow
-7. Click the GitHub organization to list available organizations
-8. Click Add another organization to authorize repositories for the org you want
-9. Complete the authorization flow
-10. Click cancel (no need to create a workspace)
-11. Navigate to User Icon -> Account Settings -> Tokens
-12. Copy the GitHub App Installation ID into this repository's terraform.tfvars file
-
-To setup VCS integration with a GitHub organization instead of an individual user (recommended), 
-the following manual steps must be taken by an admin of the organization:
-
-1. Login to HCP Terraform as an admin of the platform.
-2. Navigate to Organization Settings -> Version Control Providers.
-3. Add a VCS provider by clicking the button.
-4. Select GitHub.com (Custom) (pause and open a new tab).
-5. Login to GitHub as a user who is allowed to manage GitHub Apps belonging to the organization.
-6. Navigate to Settings -> Developer settings -> GitHub Apps.
-7. Register a new app by clicking the New GitHub App button.
-8. Refer back to the HCP Terraform form to get the required field values.
-9. Deselect Webhook -> Active.
-10. Expand Repository permissions and update Contents -> Read-only.
-11. Ensure this GitHub App can only be installed on the lab account.
-12. Create the app by clicking Create Github App.
-13. Copy the new client ID into HCP Terraform under Client ID.
-14. In the GitHub App settings page, generate a new client secret by clicking the relevant button.
-15. Copy the new client secret into HCP Terraform under Client Secret.
-16. In the GitHub App settings page, click Save changes to complete the client secret creation. 
-17. In HCP Terraform, click Connect and Continue to begin the authorization flow.
-18. Authorize the GitHub App to allow permission to the items listed.
-19. Finalize the VCS provider setup by clicking the Skip and finish button.
-
-
 ```sh
 export TF_TOKEN_app_terraform_io="" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_locals_imports)"
 ```
+
+#### VCS Integration with GitHub
+
+In order to scope the list of repositories shown to users when creating a VCS backed workspace,
+it is necessary to create and install a custom GitHub App in your GitHub organization using a
+service account. Using a service account is not strictly required but is recommended in order
+to ensure _only_ repositories for an organization are listed--not those belonging to a user.
+
+##### Creating a GitHub Service Account
+
+Create a GitHub service account by navigating to https://github.com/signup and creating a new
+user with a unique email and username. This user is like any other human user, but will be 
+configured with a private profile and own no repositories.
+
+##### Add the Service Account to the GitHub Organization
+
+Once created, add the service account as an owner of the GitHub organization being integrated
+with HCP Terraform.
+
+##### Create a GitHub App in the GitHub Organization
+
+Navigate to GitHub organization settings -> Developer settings -> GitHub Apps to create a new
+GitHub App for the _organization_ (not an individual user).
+
+The GitHub App name, Homepage URL, and Callback URL fields will be populated with information 
+generated in HCP Terraform so scroll past these parameters for now.
+
+Uncheck the Webhook -> Active checkbox as this is not needed.
+
+Expand the Repository permissions section and change the following options (from the defaults):
+- Commit statuses: Read and write
+- Contents: Read-only
+- Metadata: Read-only
+- Webhooks: Read-only
+
+Ensure the GitHub App can only be installed on this account (which should show the organization
+as the account).
+
+Pause here and open a new window/tab with the HCP Terraform organization open and logged in
+as a user with access to add a VCS Provider.
+
+###### Add a VCS Provider
+
+Navigate to HCP Terraform organization settings -> Version Control -> Providers to Add a VCS provider.
+Select GitHub -> GitHub.com (Custom) to display the information needed to populate the GitHub App
+creation form.
+
+Back in the GitHub App creation window/tab, copy the Application name, Homepage URL, and Authorization
+callback URL into the relevant fields in the GitHub App configuration.
+
+Click Create GitHub App and copy the Client ID into the Add VCS Provider window in HCP Terraform and
+give the VCS Provider the same name as the GitHub organization being configured.
+
+Finally, in the GitHub App, Generate a new client secret, and copy the secret into the Add VCS Provider
+window in HCP Terraform.
+
+Click Connect and continue to begin the authorization workflow between HCP Terraform and GitHub. At this
+point it is important to be logged into GitHub using your _service account_ created earlier, not your
+user account. It is important to note that the email used for the GitHub _service account_ does not need
+to be a member of the HCP Terraform organization.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
