@@ -1,4 +1,4 @@
-# Bootstrap configuration.
+# Bootstrap Configuration
 
 variable "hcp_terraform_organization_name" {
   type        = string
@@ -31,7 +31,7 @@ variable "terraform_version" {
   default     = "1.10.3"
 }
 
-# Organization configuration.
+# Organization Configuration
 
 variable "owners_team_emails" {
   type        = set(string)
@@ -49,4 +49,17 @@ variable "admins_team_emails" {
   type        = set(string)
   description = "A list of member email addresses for the admins team."
   default     = []
+}
+
+# VCS Configuration
+# TODO: Create an object for the bootstrap configuration and collect GitHub configuration.
+
+variable "github_organization_name" {
+  type        = string
+  description = "The name of the GitHub organization used as the VCS provider."
+}
+
+variable "backend_vcs_repository_name" {
+  type        = string
+  description = "The name of the GitHub repository backing the backend workspace."
 }

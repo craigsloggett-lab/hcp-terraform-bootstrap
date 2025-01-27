@@ -41,7 +41,12 @@ resource "tfe_workspace" "backend" {
   project_id   = tfe_project.backend.id
 
   terraform_version = var.terraform_version
-  queue_all_runs    = false
+  queue_all_runs    = true
+
+  vcs_repo {
+    identifier     = "${var.github_organization_name}/${var.backend_vcs_repository_name}"
+    oauth_token_id = data.tfe_oauth_client.github.oauth_token_id
+  }
 }
 
 resource "tfe_variable_set" "tfe_provider_authentication" {
