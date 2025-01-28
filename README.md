@@ -64,7 +64,7 @@ Expand the Repository permissions section and change the following options (from
 - Commit statuses: Read and write
 - Contents: Read-only
 - Metadata: Read-only
-- Webhooks: Read-only
+- Webhooks: Read and write
 
 Ensure the GitHub App can only be installed on this account (which should show the organization
 as the account).
