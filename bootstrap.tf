@@ -40,8 +40,9 @@ resource "tfe_workspace" "backend" {
   organization = tfe_organization.this.name
   project_id   = tfe_project.backend.id
 
-  terraform_version = var.terraform_version
+  auto_apply        = true
   queue_all_runs    = true
+  terraform_version = var.terraform_version
 
   vcs_repo {
     identifier     = "${var.github_organization_name}/${var.backend_vcs_repository_name}"
