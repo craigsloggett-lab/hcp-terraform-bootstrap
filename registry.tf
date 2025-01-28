@@ -11,3 +11,5 @@ data "tfe_registry_gpg_keys" "all" {
 # Add the following modules:
 # - AWS VPC
 # - My TFE AWS one
+
+# Figure out how to have a logo beside the published module.
