@@ -52,7 +52,6 @@ variable "admins_team_emails" {
 }
 
 # VCS Configuration
-# TODO: Create an object for the bootstrap configuration and collect GitHub configuration.
 
 variable "github_organization_name" {
   type        = string
