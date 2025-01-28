@@ -2,7 +2,7 @@
 # The resources for the Default Project can be found in `bootstrap.tf`.
 
 resource "tfe_project" "modules" {
-  name         = "Module Testing"
+  name         = "Modules"
   organization = tfe_organization.this.name
   description  = "A collection of ephemeral workspaces to test modules."
 }
