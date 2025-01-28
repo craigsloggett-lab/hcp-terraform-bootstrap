@@ -119,11 +119,14 @@ No modules.
 | [tfe_organization_membership.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/organization_membership) | resource |
 | [tfe_project.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project) | resource |
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project) | resource |
+| [tfe_project.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project) | resource |
+| [tfe_project_variable_set.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project_variable_set) | resource |
 | [tfe_team.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team) | resource |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team) | resource |
 | [tfe_team_organization_members.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_project_access.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_project_access) | resource |
+| [tfe_variable_set.aws_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable_set) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable_set) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/workspace_variable_set) | resource |
@@ -136,6 +139,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_admins_team_emails"></a> [admins\_team\_emails](#input\_admins\_team\_emails) | A list of member email addresses for the admins team. | `set(string)` | `[]` | no |
+| <a name="input_aws_provider_authentication_variable_set_name"></a> [aws\_provider\_authentication\_variable\_set\_name](#input\_aws\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to authenticate the AWS provider. | `string` | `"AWS Provider Authentication"` | no |
 | <a name="input_backend_project_name"></a> [backend\_project\_name](#input\_backend\_project\_name) | The name of the project used to manage this HCP Terraform organization. | `string` | n/a | yes |
 | <a name="input_backend_vcs_repository_name"></a> [backend\_vcs\_repository\_name](#input\_backend\_vcs\_repository\_name) | The name of the GitHub repository backing the backend workspace. | `string` | n/a | yes |
 | <a name="input_backend_workspace_name"></a> [backend\_workspace\_name](#input\_backend\_workspace\_name) | The name of the workspace used to manage this HCP Terraform organization. | `string` | n/a | yes |
@@ -145,7 +149,7 @@ No modules.
 | <a name="input_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#input\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform organization being managed. | `string` | n/a | yes |
 | <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A list of member email addresses for the owners team. | `set(string)` | `[]` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use in all workspaces. | `string` | `"1.10.3"` | no |
-| <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to authenticate the TFE provider. | `string` | n/a | yes |
+| <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to authenticate the TFE provider. | `string` | `"TFE Provider Authentication"` | no |
 
 ## Outputs
 
