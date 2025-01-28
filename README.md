@@ -18,10 +18,11 @@ The following steps must be taken before being able to run the code in this repo
 2. Run `terraform login` to generate a user API token.
 3. Run `terraform init` to create the backend workspace.
 4. Manually generate a team API token for the "owners" team.
-5. Manually create a variable set named "TFE Provider Authentication".
+5. Manually create a variable set for the purpose of authenticating the TFE provider.
 6. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
 7. Assign the variable set to the backend workspace.
-8. Generate a `locals_imports.tf` file with the IDs of the resources in your HCP Terraform organization.
+8. Create a `terraform.tfvars` file with the values for your HCP Terraform organization.
+9. Generate a `locals_imports.tf` file with the IDs of the resources in your HCP Terraform organization.
 
 #### Generate `locals_imports.tf`
 
