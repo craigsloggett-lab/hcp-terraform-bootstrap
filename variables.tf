@@ -23,6 +23,7 @@ variable "backend_workspace_name" {
 variable "tfe_provider_authentication_variable_set_name" {
   type        = string
   description = "The name of the variable set used to authenticate the TFE provider."
+  default     = "TFE Provider Authentication"
 }
 
 variable "terraform_version" {
@@ -61,4 +62,12 @@ variable "github_organization_name" {
 variable "backend_vcs_repository_name" {
   type        = string
   description = "The name of the GitHub repository backing the backend workspace."
+}
+
+# Module Configuration
+
+variable "aws_provider_authentication_variable_set_name" {
+  type        = string
+  description = "The name of the variable set used to authenticate the AWS provider."
+  default     = "AWS Provider Authentication"
 }
