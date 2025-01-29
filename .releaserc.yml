@@ -5,26 +5,22 @@ plugins:
       releaseRules:
         - type: chore
           release: patch
-        - type: ci
-          release: patch
         - type: docs
           release: patch
-        - type: major
-          release: major
   - - '@semantic-release/release-notes-generator'
     - preset: conventionalCommits
       presetConfig:
         types:
-          - type: chore
-            section: Chores
-          - type: ci
-            section: CI
           - type: docs
             section: Documentation
-          - type: feat
-            section: Features
+          - type: chore
+            release: Chores
+          - type: ci
+            section: CI Changes
           - type: fix
             section: Bug Fixes
+          - type: feat
+            section: Features
           - type: major
             section: Breaking Changes
   - '@semantic-release/git'
