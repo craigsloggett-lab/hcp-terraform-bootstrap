@@ -121,6 +121,8 @@ No modules.
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project) | resource |
 | [tfe_project.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project) | resource |
 | [tfe_project_variable_set.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/project_variable_set) | resource |
+| [tfe_registry_module.terraform_aws_vpc](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/registry_module) | resource |
+| [tfe_registry_provider.hashicorp](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/registry_provider) | resource |
 | [tfe_team.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team) | resource |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team) | resource |
 | [tfe_team_organization_members.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
@@ -132,7 +134,6 @@ No modules.
 | [tfe_workspace_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/workspace_variable_set) | resource |
 | [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/data-sources/oauth_client) | data source |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/data-sources/organization_membership) | data source |
-| [tfe_registry_gpg_keys.all](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/data-sources/registry_gpg_keys) | data source |
 
 ## Inputs
 
@@ -153,7 +154,5 @@ No modules.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_available_registry_gpg_keys"></a> [available\_registry\_gpg\_keys](#output\_available\_registry\_gpg\_keys) | A list of all of the GPG keys in this organization. |
+No outputs.
 <!-- END_TF_DOCS -->
