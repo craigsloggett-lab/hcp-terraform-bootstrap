@@ -14,3 +14,11 @@ resource "tfe_workspace" "aws_tfe_fdo_docker_active_active_module" {
     oauth_token_id = data.tfe_oauth_client.github.oauth_token_id
   }
 }
+
+resource "tfe_variable" "tfe_license" {
+  key          = "tfe_license"
+  value        = var.tfe_license
+  category     = "terraform"
+  workspace_id = tfe_workspace.aws_tfe_fdo_docker_active_active_module.id
+  description  = "The license for Terraform Enterprise."
+}

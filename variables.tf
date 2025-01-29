@@ -71,3 +71,9 @@ variable "aws_provider_authentication_variable_set_name" {
   description = "The name of the variable set used to authenticate the AWS provider."
   default     = "AWS Provider Authentication"
 }
+
+variable "tfe_license" {
+  type        = string
+  description = "The license for Terraform Enterprise to test module development."
+  default     = ""
+}
