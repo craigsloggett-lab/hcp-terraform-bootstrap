@@ -128,10 +128,8 @@ No modules.
 | [tfe_team_organization_members.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_project_access.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_project_access) | resource |
-| [tfe_variable.tfe_license](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable) | resource |
 | [tfe_variable_set.aws_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable_set) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable_set) | resource |
-| [tfe_workspace.aws_tfe_fdo_docker_active_active_module](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/workspace) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/workspace_variable_set) | resource |
 | [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/data-sources/oauth_client) | data source |
@@ -152,7 +150,6 @@ No modules.
 | <a name="input_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#input\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform organization being managed. | `string` | n/a | yes |
 | <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A list of member email addresses for the owners team. | `set(string)` | `[]` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use in all workspaces. | `string` | `"1.10.3"` | no |
-| <a name="input_tfe_license"></a> [tfe\_license](#input\_tfe\_license) | The license for Terraform Enterprise to test module development. | `string` | `""` | no |
 | <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to authenticate the TFE provider. | `string` | `"TFE Provider Authentication"` | no |
 
 ## Outputs
