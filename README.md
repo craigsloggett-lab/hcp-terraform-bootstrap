@@ -128,7 +128,9 @@ No modules.
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team) | resource |
 | [tfe_team_organization_members.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
 | [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_organization_members) | resource |
-| [tfe_team_project_access.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_project_access) | resource |
+| [tfe_team_project_access.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_project_access) | resource |
+| [tfe_team_project_access.default](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_project_access) | resource |
+| [tfe_team_project_access.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/team_project_access) | resource |
 | [tfe_test_variable.tfe_license](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/test_variable) | resource |
 | [tfe_variable_set.aws_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable_set) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.63.0/docs/resources/variable_set) | resource |
