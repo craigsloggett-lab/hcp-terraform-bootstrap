@@ -35,9 +35,27 @@ resource "tfe_team_organization_members" "admins" {
   organization_membership_ids = [for email in var.admins_team_emails : data.tfe_organization_membership.admins[email].id]
 }
 
+# Provide admin access to the Default Project that comes with HCP Terraform.
+resource "tfe_team_project_access" "default" {
+  access     = "admin"
+  team_id    = tfe_team.admins.id
+  project_id = tfe_project.default.id
+}
+
+moved {
+  from = tfe_team_project_access.admins
+  to   = tfe_team_project_access.backend
+}
+
 # Provide admin access to the project configured in `backend.tf`.
-resource "tfe_team_project_access" "admins" {
+resource "tfe_team_project_access" "backend" {
   access     = "admin"
   team_id    = tfe_team.admins.id
   project_id = tfe_project.backend.id
+}
+
+resource "tfe_team_project_access" "modules" {
+  access     = "admin"
+  team_id    = tfe_team.admins.id
+  project_id = tfe_project.modules.id
 }
