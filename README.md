@@ -16,13 +16,14 @@ The following steps must be taken before being able to run the code in this repo
 
 1. Create an HCP Terraform organization.
 2. Run `terraform login` to generate a user API token.
-3. Run `terraform init` to create the backend workspace.
-4. Manually generate a team API token for the "owners" team.
-5. Manually create a variable set for the purpose of authenticating the TFE provider.
-6. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
-7. Assign the variable set to the backend workspace.
-8. Create a `terraform.tfvars` file with the values for your HCP Terraform organization.
-9. Generate a `locals_imports.tf` file with the IDs of the resources in your HCP Terraform organization.
+3. Update `backend.tf` to point to your HCP Terraform organization. You can modify workspace and project as well but not sugggested.
+4. Run `terraform init` to create the backend workspace.
+5. Manually generate a team API token for the "owners" team.
+6. Manually create a variable set for the purpose of authenticating the TFE provider.
+7. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
+8. Assign the variable set to the backend workspace.
+9. Create a `terraform.tfvars` file with the values for your HCP Terraform organization.
+10. Generate a `locals_imports.tf` file with the IDs of the resources in your HCP Terraform organization.
 
 #### Generate `locals_imports.tf`
 
@@ -30,7 +31,7 @@ To generate a `locals` block containing the IDs of the resources to bring under
 management, review and run the script in [`.local/bin/generate_locals_imports`](.local/bin/generate_locals_imports):
 
 ```sh
-export TF_TOKEN_app_terraform_io="" /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_locals_imports)"
+export TF_TOKEN_app_terraform_io="{{your token}}"; /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_locals_imports)"
 ```
 
 #### VCS Integration with GitHub
