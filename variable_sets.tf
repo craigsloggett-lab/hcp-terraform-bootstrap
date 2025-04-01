@@ -10,3 +10,8 @@ resource "tfe_project_variable_set" "modules" {
   project_id      = tfe_project.modules.id
   variable_set_id = tfe_variable_set.aws_provider_authentication.id
 }
+
+resource "tfe_project_variable_set" "lab" {
+  project_id      = tfe_project.lab.id
+  variable_set_id = tfe_variable_set.aws_provider_authentication.id
+}

@@ -20,6 +20,11 @@ variable "backend_workspace_name" {
   description = "The name of the workspace used to manage this HCP Terraform organization."
 }
 
+variable "backend_vcs_repository_name" {
+  type        = string
+  description = "The name of the GitHub repository backing the backend workspace."
+}
+
 variable "tfe_provider_authentication_variable_set_name" {
   type        = string
   description = "The name of the variable set used to authenticate the TFE provider."
@@ -59,15 +64,22 @@ variable "github_organization_name" {
   description = "The name of the GitHub organization used as the VCS provider."
 }
 
-variable "backend_vcs_repository_name" {
-  type        = string
-  description = "The name of the GitHub repository backing the backend workspace."
-}
-
 # Module Configuration
 
 variable "aws_provider_authentication_variable_set_name" {
   type        = string
   description = "The name of the variable set used to authenticate the AWS provider."
   default     = "AWS Provider Authentication"
+}
+
+# Lab Infrastructure
+
+variable "vps_relay_workspace_name" {
+  type        = string
+  description = "The name of the workspace used to manage the lab infrastructure."
+}
+
+variable "vps_relay_vcs_repository_name" {
+  type        = string
+  description = "The name of the GitHub repository backing the vps relay workspace."
 }
