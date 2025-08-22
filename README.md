@@ -140,7 +140,7 @@ No modules.
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/variable_set) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/workspace_variable_set) | resource |
-| [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/data-sources/oauth_client) | data source |
+| [tfe_github_app_installation.github](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/data-sources/github_app_installation) | data source |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/data-sources/organization_membership) | data source |
 
 ## Inputs
