@@ -1,4 +1,3 @@
-data "tfe_oauth_client" "github" {
-  service_provider = "github"
-  organization     = tfe_organization.this.name
+data "tfe_github_app_installation" "github" {
+  name = var.github_organization_name
 }
