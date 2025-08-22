@@ -20,7 +20,3 @@ hcp_terraform_admins_team_name = "admins"
 admins_team_emails = [
   "craig.sloggett@hashicorp.com",
 ]
-
-## Lab Infrastructure
-vps_relay_workspace_name      = "terraform-aws-vps-relay"
-vps_relay_vcs_repository_name = "terraform-aws-vps-relay"
