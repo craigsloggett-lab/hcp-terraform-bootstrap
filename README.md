@@ -124,8 +124,6 @@ No modules.
 | [tfe_project.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/project) | resource |
 | [tfe_project_variable_set.lab](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/project_variable_set) | resource |
 | [tfe_project_variable_set.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/project_variable_set) | resource |
-| [tfe_registry_module.terraform_aws_tfe_fdo_docker_active_active](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/registry_module) | resource |
-| [tfe_registry_module.terraform_aws_vpc](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/registry_module) | resource |
 | [tfe_registry_provider.hashicorp](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/registry_provider) | resource |
 | [tfe_team.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/team) | resource |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/team) | resource |
@@ -135,7 +133,6 @@ No modules.
 | [tfe_team_project_access.default](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/team_project_access) | resource |
 | [tfe_team_project_access.lab](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/team_project_access) | resource |
 | [tfe_team_project_access.modules](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/team_project_access) | resource |
-| [tfe_test_variable.tfe_license](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/test_variable) | resource |
 | [tfe_variable_set.aws_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/variable_set) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/variable_set) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/workspace) | resource |
