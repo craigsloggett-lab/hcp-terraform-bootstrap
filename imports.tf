@@ -20,7 +20,7 @@ import {
 
 # The `owners` team members.
 import {
-  id = tfe_team.owners.id
+  id = local.imports.team_ids.owners
   to = tfe_team_organization_members.owners
 }
 
@@ -58,4 +58,12 @@ import {
     var.tfe_provider_authentication_variable_set_name,
   ])
   to = tfe_workspace_variable_set.backend
+}
+
+removed {
+  from = tfe_workspace.terraform_aws_vps_relay
+
+  lifecycle {
+    destroy = false
+  }
 }
