@@ -139,7 +139,6 @@ No modules.
 | [tfe_variable_set.aws_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/variable_set) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/variable_set) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/workspace) | resource |
-| [tfe_workspace.terraform_aws_vps_relay](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/workspace) | resource |
 | [tfe_workspace_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/resources/workspace_variable_set) | resource |
 | [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/data-sources/oauth_client) | data source |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.64.0/docs/data-sources/organization_membership) | data source |
@@ -160,8 +159,6 @@ No modules.
 | <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A list of member email addresses for the owners team. | `set(string)` | `[]` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use in all workspaces. | `string` | `"1.10.3"` | no |
 | <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to authenticate the TFE provider. | `string` | `"TFE Provider Authentication"` | no |
-| <a name="input_vps_relay_vcs_repository_name"></a> [vps\_relay\_vcs\_repository\_name](#input\_vps\_relay\_vcs\_repository\_name) | The name of the GitHub repository backing the vps relay workspace. | `string` | n/a | yes |
-| <a name="input_vps_relay_workspace_name"></a> [vps\_relay\_workspace\_name](#input\_vps\_relay\_workspace\_name) | The name of the workspace used to manage the lab infrastructure. | `string` | n/a | yes |
 
 ## Outputs
 
