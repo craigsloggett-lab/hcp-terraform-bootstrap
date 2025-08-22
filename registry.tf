@@ -30,10 +30,10 @@ resource "tfe_registry_module" "terraform_aws_tfe_fdo_docker_active_active" {
   }
 
   vcs_repo {
-    display_identifier = "${var.github_organization_name}/terraform-aws-tfe-fdo-docker-active-active"
-    identifier         = "${var.github_organization_name}/terraform-aws-tfe-fdo-docker-active-active"
-    oauth_token_id     = data.tfe_oauth_client.github.oauth_token_id
-    branch             = "main"
+    display_identifier         = "${var.github_organization_name}/terraform-aws-tfe-fdo-docker-active-active"
+    identifier                 = "${var.github_organization_name}/terraform-aws-tfe-fdo-docker-active-active"
+    github_app_installation_id = data.tfe_github_app_installation.github.id
+    branch                     = "main"
   }
 }
 
