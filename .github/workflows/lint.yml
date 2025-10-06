@@ -57,7 +57,7 @@ jobs:
         with:
           terraform_version: 1.8.0
       - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v5
+        uses: terraform-linters/setup-tflint@v6
         with:
           tflint_version: v0.51.1
       - name: TFLint
