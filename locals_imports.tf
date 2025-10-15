@@ -2,8 +2,9 @@
 locals {
   imports = {
     team_ids = {
-      admins = "team-AgMKArPE1pnwYpPz"
-      owners = "team-p9ryLNrpQ9TNmEFh"
+      admins          = "team-AgMKArPE1pnwYpPz"
+      owners          = "team-p9ryLNrpQ9TNmEFh"
+      wiz-integration = "team-E8EciwrWaKutyh7u"
     }
     organization_membership_ids = {
       owners = {
@@ -27,6 +28,9 @@ locals {
     }
     workspace_ids = {
       hcp-terraform-admin = "ws-aAUcuGF6QEJKuQyL"
+    }
+    oauth_client_ids = {
+      craigsloggett-lab = "oc-PD4QDUZar9ic3kWG"
     }
   }
 }

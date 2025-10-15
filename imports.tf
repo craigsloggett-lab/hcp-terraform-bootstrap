@@ -59,11 +59,3 @@ import {
   ])
   to = tfe_workspace_variable_set.backend
 }
-
-removed {
-  from = tfe_workspace.terraform_aws_vps_relay
-
-  lifecycle {
-    destroy = false
-  }
-}

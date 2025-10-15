@@ -4,7 +4,7 @@ hcp_terraform_organization_email = "craig.sloggett@hashicorp.com"
 backend_project_name             = "Platform Team"
 backend_workspace_name           = "hcp-terraform-admin"
 backend_vcs_repository_name      = "hcp-terraform-admin"
-github_organization_name         = "craigsloggett"
+github_organization_name         = "craigsloggett-lab"
 
 # Optional
 terraform_version                             = "1.10.3"
