@@ -34,7 +34,7 @@ variable "tfe_provider_authentication_variable_set_name" {
 variable "terraform_version" {
   type        = string
   description = "The version of Terraform to use in all workspaces."
-  default     = "1.13.0"
+  default     = "1.13.3"
 }
 
 # Organization Configuration
@@ -64,10 +64,42 @@ variable "github_organization_name" {
   description = "The name of the GitHub organization used as the VCS provider."
 }
 
-# Module Configuration
+# Variable Set Configuration
 
 variable "aws_provider_authentication_variable_set_name" {
   type        = string
-  description = "The name of the variable set used to authenticate the AWS provider."
+  description = "The name of the variable set used to authenticate the AWS Provider."
   default     = "AWS Provider Authentication"
+}
+
+variable "azurerm_provider_authentication_variable_set_name" {
+  type        = string
+  description = "The name of the variable set used to authenticate the Azure Provider."
+  default     = "Azure Provider Authentication"
+}
+
+variable "fabric_provider_authentication_variable_set_name" {
+  type        = string
+  description = "The name of the variable set used to authenticate the Fabric Provider."
+  default     = "Microsoft Fabric Provider Authentication"
+}
+
+# Workspaces Configuration
+
+variable "environments" {
+  type        = set(string)
+  description = "A set of environments used by the organization."
+  default     = ["lab"]
+}
+
+variable "shared_services_workspace_name" {
+  type        = string
+  description = "The name of the shared services workspace."
+  default     = "platform-team-shared-services"
+}
+
+variable "shared_services_vcs_repository_name" {
+  type        = string
+  description = "The name of the GitHub repository backing the shared services workspace."
+  default     = "hcp-terraform-platform-team-shared-services"
 }
