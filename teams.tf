@@ -54,9 +54,3 @@ resource "tfe_team_project_access" "modules" {
   team_id    = tfe_team.admins.id
   project_id = tfe_project.modules.id
 }
-
-resource "tfe_team_project_access" "lab" {
-  access     = "admin"
-  team_id    = tfe_team.admins.id
-  project_id = tfe_project.lab.id
-}
