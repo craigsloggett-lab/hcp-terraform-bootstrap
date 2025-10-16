@@ -40,13 +40,14 @@ resource "tfe_workspace" "backend" {
   organization = tfe_organization.this.name
   project_id   = tfe_project.backend.id
 
-  auto_apply        = true
-  queue_all_runs    = true
-  terraform_version = var.terraform_version
+  auto_apply            = true
+  queue_all_runs        = true
+  terraform_version     = var.terraform_version
+  file_triggers_enabled = false
 
   vcs_repo {
-    identifier                 = "${var.github_organization_name}/${var.backend_vcs_repository_name}"
-    github_app_installation_id = data.tfe_github_app_installation.github.id
+    identifier     = "${var.github_organization_name}/${var.backend_vcs_repository_name}"
+    oauth_token_id = data.tfe_oauth_client.github.oauth_token_id
   }
 }
 

@@ -36,7 +36,7 @@ tf_token="${TF_TOKEN_app_terraform_io:?'parameter is null or not set. Use export
 
 # Define important paths.
 script_path="$(cd "$(dirname "$0")" && pwd)"
-tfvars_path="${script_path}/../../terraform.tfvars"
+tfvars_path="${script_path}/../../defaults.auto.tfvars"
 locals_imports_path="${script_path}/../../locals_imports.tf"
 
 [ -f "${tfvars_path}" ] || {
@@ -47,16 +47,16 @@ locals_imports_path="${script_path}/../../locals_imports.tf"
 # Check if the identifier is valid HCL syntax.
 valid_identifier() {
   case $1 in
-  # Match any string that is:
-  # - empty
-  # - starts with an invalid character
-  # - contains invalid characters
-  '' | [!A-Za-z_]* | *[!A-Za-z0-9_-]*)
-    return 1
-    ;;
-  *)
-    return 0
-    ;;
+    # Match any string that is:
+    # - empty
+    # - starts with an invalid character
+    # - contains invalid characters
+    '' | [!A-Za-z_]* | *[!A-Za-z0-9_-]*)
+      return 1
+      ;;
+    *)
+      return 0
+      ;;
   esac
 }
 
