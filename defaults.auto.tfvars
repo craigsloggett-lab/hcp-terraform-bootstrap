@@ -7,10 +7,6 @@ backend_vcs_repository_name      = "hcp-terraform-admin"
 github_organization_name         = "craigsloggett-lab"
 
 # Optional
-terraform_version                             = "1.10.3"
-tfe_provider_authentication_variable_set_name = "TFE Provider Authentication"
-aws_provider_authentication_variable_set_name = "AWS Provider Authentication"
-
 owners_team_emails = [
   "craig.sloggett@hashicorp.com",
 ]
