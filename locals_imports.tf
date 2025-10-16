@@ -16,18 +16,14 @@ locals {
       }
     }
     project_ids = {
+      Administration    = "prj-LMG8bhhEpUzg9rrb"
       "Default Project" = "prj-1ifijXyay7xeH9Zc"
-      Lab               = "prj-MxaDT6kcBskems1h"
-      Modules           = "prj-3rGi6Mb5Pzm4UXf8"
-      "Platform Team"   = "prj-qW7NitPW1R49WN4b"
     }
     variable_set_ids = {
       "TFE Provider Authentication" = "varset-FwFGK65suTr7eaAA"
-      "HCP Provider Authentication" = "varset-STBAvPjd212TqpgM"
-      "AWS Provider Authentication" = "varset-oT6SAwv3yoXXptoK"
     }
     workspace_ids = {
-      hcp-terraform-admin = "ws-aAUcuGF6QEJKuQyL"
+      hcp-terraform-bootstrap = "ws-dAs6ozkxSPBE4Td9"
     }
     oauth_client_ids = {
       craigsloggett-lab = "oc-PD4QDUZar9ic3kWG"
