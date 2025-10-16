@@ -34,7 +34,7 @@ variable "tfe_provider_authentication_variable_set_name" {
 variable "terraform_version" {
   type        = string
   description = "The version of Terraform to use in all workspaces."
-  default     = "1.13.0"
+  default     = "1.13.3"
 }
 
 # Organization Configuration
