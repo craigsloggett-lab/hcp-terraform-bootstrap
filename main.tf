@@ -36,7 +36,7 @@ resource "tfe_project" "default" {
 resource "tfe_project" "backend" {
   name         = var.backend_project_name
   organization = tfe_organization.this.name
-  description  = "A collection of workspaces to manage platform services."
+  description  = "A collection of workspaces to manage the HCP Terraform platform."
 }
 
 resource "tfe_workspace" "backend" {
