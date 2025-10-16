@@ -16,18 +16,19 @@ locals {
       }
     }
     project_ids = {
-      "Default Project" = "prj-1ifijXyay7xeH9Zc"
-      Lab               = "prj-MxaDT6kcBskems1h"
-      Modules           = "prj-3rGi6Mb5Pzm4UXf8"
-      "Platform Team"   = "prj-qW7NitPW1R49WN4b"
+      "Default Project"                       = "prj-1ifijXyay7xeH9Zc"
+      "HCP Terraform Platform Administration" = "prj-LMG8bhhEpUzg9rrb"
+      Modules                                 = "prj-3rGi6Mb5Pzm4UXf8"
+      "Platform Team"                         = "prj-qW7NitPW1R49WN4b"
     }
     variable_set_ids = {
-      "TFE Provider Authentication" = "varset-FwFGK65suTr7eaAA"
-      "HCP Provider Authentication" = "varset-STBAvPjd212TqpgM"
-      "AWS Provider Authentication" = "varset-oT6SAwv3yoXXptoK"
+      "TFE Provider Authentication"              = "varset-FwFGK65suTr7eaAA"
+      "Microsoft Fabric Provider Authentication" = "varset-4744t5m8b3w7M459"
+      "AWS Provider Authentication"              = "varset-oT6SAwv3yoXXptoK"
+      "Azure Provider Authentication"            = "varset-QG9pFU1edpy7xBZA"
     }
     workspace_ids = {
-      hcp-terraform-admin = "ws-aAUcuGF6QEJKuQyL"
+      hcp-terraform-bootstrap = "ws-aAUcuGF6QEJKuQyL"
     }
     oauth_client_ids = {
       craigsloggett-lab = "oc-PD4QDUZar9ic3kWG"

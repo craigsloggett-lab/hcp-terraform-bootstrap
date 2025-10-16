@@ -3,26 +3,31 @@
 variable "hcp_terraform_organization_name" {
   type        = string
   description = "The name of the HCP Terraform organization being managed."
+  default     = "craigsloggett-lab"
 }
 
 variable "hcp_terraform_organization_email" {
   type        = string
   description = "The notification email address for the HCP Terraform organization being managed."
+  default     = "craig.sloggett@hashicorp.com"
 }
 
 variable "backend_project_name" {
   type        = string
-  description = "The name of the project used to manage this HCP Terraform organization."
+  description = "The name of the project containing the workspaces used to manage this HCP Terraform organization."
+  default     = "Administration"
 }
 
 variable "backend_workspace_name" {
   type        = string
   description = "The name of the workspace used to manage this HCP Terraform organization."
+  default     = "hcp-terraform-bootstrap"
 }
 
 variable "backend_vcs_repository_name" {
   type        = string
   description = "The name of the GitHub repository backing the backend workspace."
+  default     = "hcp-terraform-bootstrap"
 }
 
 variable "tfe_provider_authentication_variable_set_name" {
@@ -42,7 +47,7 @@ variable "terraform_version" {
 variable "owners_team_emails" {
   type        = set(string)
   description = "A list of member email addresses for the owners team."
-  default     = []
+  default     = ["craig.sloggett@hashicorp.com"]
 }
 
 variable "hcp_terraform_admins_team_name" {
@@ -54,52 +59,13 @@ variable "hcp_terraform_admins_team_name" {
 variable "admins_team_emails" {
   type        = set(string)
   description = "A list of member email addresses for the admins team."
-  default     = []
+  default     = ["craig.sloggett@hashicorp.com"]
 }
 
 # VCS Configuration
 
 variable "github_organization_name" {
   type        = string
-  description = "The name of the GitHub organization used as the VCS provider."
-}
-
-# Variable Set Configuration
-
-variable "aws_provider_authentication_variable_set_name" {
-  type        = string
-  description = "The name of the variable set used to authenticate the AWS Provider."
-  default     = "AWS Provider Authentication"
-}
-
-variable "azurerm_provider_authentication_variable_set_name" {
-  type        = string
-  description = "The name of the variable set used to authenticate the Azure Provider."
-  default     = "Azure Provider Authentication"
-}
-
-variable "fabric_provider_authentication_variable_set_name" {
-  type        = string
-  description = "The name of the variable set used to authenticate the Fabric Provider."
-  default     = "Microsoft Fabric Provider Authentication"
-}
-
-# Workspaces Configuration
-
-variable "environments" {
-  type        = set(string)
-  description = "A set of environments used by the organization."
-  default     = ["lab"]
-}
-
-variable "shared_services_workspace_name" {
-  type        = string
-  description = "The name of the shared services workspace."
-  default     = "platform-team-shared-services"
-}
-
-variable "shared_services_vcs_repository_name" {
-  type        = string
-  description = "The name of the GitHub repository backing the shared services workspace."
-  default     = "hcp-terraform-platform-team-shared-services"
+  description = "The name of the GitHub organization used to configure the VCS provider."
+  default     = "craigsloggett-lab"
 }
