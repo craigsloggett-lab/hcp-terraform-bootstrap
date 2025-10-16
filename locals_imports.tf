@@ -23,7 +23,7 @@ locals {
       "TFE Provider Authentication" = "varset-FwFGK65suTr7eaAA"
     }
     workspace_ids = {
-      hcp-terraform-bootstrap = "ws-aAUcuGF6QEJKuQyL"
+      hcp-terraform-bootstrap = "ws-dAs6ozkxSPBE4Td9"
     }
     oauth_client_ids = {
       craigsloggett-lab = "oc-PD4QDUZar9ic3kWG"
