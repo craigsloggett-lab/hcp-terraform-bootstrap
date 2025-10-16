@@ -16,16 +16,11 @@ locals {
       }
     }
     project_ids = {
-      "Default Project"                       = "prj-1ifijXyay7xeH9Zc"
-      "HCP Terraform Platform Administration" = "prj-LMG8bhhEpUzg9rrb"
-      Modules                                 = "prj-3rGi6Mb5Pzm4UXf8"
-      "Platform Team"                         = "prj-qW7NitPW1R49WN4b"
+      Administration    = "prj-LMG8bhhEpUzg9rrb"
+      "Default Project" = "prj-1ifijXyay7xeH9Zc"
     }
     variable_set_ids = {
-      "TFE Provider Authentication"              = "varset-FwFGK65suTr7eaAA"
-      "Microsoft Fabric Provider Authentication" = "varset-4744t5m8b3w7M459"
-      "AWS Provider Authentication"              = "varset-oT6SAwv3yoXXptoK"
-      "Azure Provider Authentication"            = "varset-QG9pFU1edpy7xBZA"
+      "TFE Provider Authentication" = "varset-FwFGK65suTr7eaAA"
     }
     workspace_ids = {
       hcp-terraform-bootstrap = "ws-aAUcuGF6QEJKuQyL"
