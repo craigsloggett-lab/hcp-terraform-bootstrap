@@ -123,3 +123,20 @@ resource "tfe_team_project_access" "backend" {
   team_id    = tfe_team.admins.id
   project_id = tfe_project.backend.id
 }
+
+# Create an admin workspace to manage the rest of the HCP Terraform organization.
+resource "tfe_workspace" "admin" {
+  name         = var.admins_workspace_name
+  organization = tfe_organization.this.name
+  project_id   = tfe_project.backend.id
+
+  auto_apply            = true
+  queue_all_runs        = true
+  terraform_version     = var.terraform_version
+  file_triggers_enabled = false
+
+  vcs_repo {
+    identifier     = "${var.github_organization_name}/${var.admins_workspace_name}"
+    oauth_token_id = data.tfe_oauth_client.github.oauth_token_id
+  }
+}

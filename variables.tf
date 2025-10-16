@@ -62,6 +62,12 @@ variable "admins_team_emails" {
   default     = ["craig.sloggett@hashicorp.com"]
 }
 
+variable "admins_workspace_name" {
+  type        = string
+  description = "The name of the workspace used to manage the rest of the HCP Terraform organization."
+  default     = "hcp-terraform-admin"
+}
+
 # VCS Configuration
 
 variable "github_organization_name" {
