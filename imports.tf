@@ -54,8 +54,8 @@ import {
 import {
   id = join("/", [
     var.hcp_terraform_organization_name,
-    tfe_workspace.backend.name,
+    tfe_project.backend.id,
     var.tfe_provider_authentication_variable_set_name,
   ])
-  to = tfe_workspace_variable_set.backend
+  to = tfe_project_variable_set.backend
 }
