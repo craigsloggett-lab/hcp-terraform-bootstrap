@@ -55,7 +55,7 @@ resource "tfe_workspace" "backend" {
   }
 }
 
-# Created Manually to Facilitate the Bootstrap Process
+# Resources Used to Further Manage HCP Terraform
 
 resource "tfe_variable_set" "tfe_provider_authentication" {
   name         = var.tfe_provider_authentication_variable_set_name
