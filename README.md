@@ -1,4 +1,4 @@
-# hcp-terraform-admin
+# HCP Terraform Admin
 
 An infrastructure as code repository to manage an HCP Terraform organization.
 
@@ -16,57 +16,50 @@ The following steps must be taken before being able to run the code in this repo
 
 1. Create an HCP Terraform organization.
 2. Run `terraform login` to generate a user API token.
-3. Update `backend.tf` to point to your HCP Terraform organization. You can modify workspace and project as well but not sugggested.
-4. Run `terraform init` to create the backend workspace.
+3. Update `backend.tf` to use your HCP Terraform organization.
+4. Run `terraform init` to create the backend workspace and project.
 5. Manually generate a team API token for the "owners" team.
 6. Manually create a variable set for the purpose of authenticating the TFE provider.
 7. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
-8. Assign the variable set to the backend workspace.
-9. Create a `terraform.tfvars` file with the values for your HCP Terraform organization.
-10. Generate a `locals_imports.tf` file with the IDs of the resources in your HCP Terraform organization.
+8. Assign the variable set to the backend workspace (or project).
+9. Create a `defaults.auto.tfvars` file with the values for your HCP Terraform organization.
 
-#### Generate `locals_imports.tf`
+#### Generate the `locals_imports.tf` File
 
 To generate a `locals` block containing the IDs of the resources to bring under
-management, review and run the script in [`.local/bin/generate_locals_imports`](.local/bin/generate_locals_imports):
+management, review and run the script in [`scripts/generate_locals_imports.sh`](scripts/generate_locals_imports.sh):
 
 ```sh
-export TF_TOKEN_app_terraform_io="{{your token}}"; /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-admin/refs/heads/main/.local/bin/generate_locals_imports)"
+# Grab the API token from the ~/.terraform.d/credentials.tfrc.json file generated during `terraform login`.
+export TF_TOKEN_app_terraform_io="$(jq -r '.credentials."app.terraform.io".token' "${HOME}/.terraform.d/credentials.tfrc.json")"; /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-bootstrap/refs/heads/main/scripts/generate_locals_imports.sh)"
 ```
 
 #### VCS Integration with GitHub
 
 In order to scope the list of repositories shown to users when creating a VCS backed workspace,
-it is necessary to create and install a custom GitHub App in your GitHub organization using a
-service account. Using a service account is not strictly required but is recommended in order
-to ensure _only_ repositories for an organization are listed--not those belonging to a user.
+it is necessary to create and install an OAuth App in your GitHub organization. Using a service
+account is not strictly required but is recommended in order to ensure _only_ repositories for
+an organization are listed -- and not those belonging to a user.
 
 ##### Creating a GitHub Service Account
 
 Create a GitHub service account by navigating to https://github.com/signup and creating a new
-user with a unique email and username. This user is like any other human user, but will be 
+user with a unique email and username. This user is like any other human user, but will be
 configured with a private profile and own no repositories.
 
 ##### Add the Service Account to the GitHub Organization
 
-Once created, add the service account as an owner of the GitHub organization being integrated
+Once created, add the service account as a member of the GitHub organization being integrated
 with HCP Terraform.
 
-##### Create a GitHub App in the GitHub Organization
+##### Create an OAuth App in the GitHub Organization
 
-Navigate to GitHub organization settings -> Developer settings -> GitHub Apps to create a new
-GitHub App for the _organization_ (not an individual user).
+Navigate to GitHub organization settings -> Developer settings -> OAuth Apps to create a new
+OAuth App for the _organization_ (not an individual user).
 
-The GitHub App name, Homepage URL, and Callback URL fields will be populated with information 
-generated in HCP Terraform so scroll past these parameters for now.
+The Application name, Homepage URL, and Authorization callback URL fields will be populated
+with information generated in HCP Terraform so scroll past these parameters for now.
 
-Uncheck the Webhook -> Active checkbox as this is not needed.
-
-Expand the Repository permissions section and change the following options (from the defaults):
-- Commit statuses: Read and write
-- Contents: Read-only
-- Metadata: Read-only
-- Webhooks: Read and write
 
 Ensure the GitHub App can only be installed on this account (which should show the organization
 as the account).
@@ -128,6 +121,7 @@ No modules.
 | [tfe_team_project_access.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/team_project_access) | resource |
 | [tfe_team_project_access.default](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/team_project_access) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/variable_set) | resource |
+| [tfe_workspace.admin](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/workspace) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/workspace) | resource |
 | [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/data-sources/oauth_client) | data source |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/data-sources/organization_membership) | data source |
@@ -137,6 +131,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_admins_team_emails"></a> [admins\_team\_emails](#input\_admins\_team\_emails) | A list of member email addresses for the admins team. | `set(string)` | <pre>[<br/>  "craig.sloggett@hashicorp.com"<br/>]</pre> | no |
+| <a name="input_admins_workspace_name"></a> [admins\_workspace\_name](#input\_admins\_workspace\_name) | The name of the workspace used to manage the rest of the HCP Terraform organization. | `string` | `"hcp-terraform-admin"` | no |
 | <a name="input_backend_project_name"></a> [backend\_project\_name](#input\_backend\_project\_name) | The name of the project containing the workspaces used to manage this HCP Terraform organization. | `string` | `"Administration"` | no |
 | <a name="input_backend_vcs_repository_name"></a> [backend\_vcs\_repository\_name](#input\_backend\_vcs\_repository\_name) | The name of the GitHub repository backing the backend workspace. | `string` | `"hcp-terraform-bootstrap"` | no |
 | <a name="input_backend_workspace_name"></a> [backend\_workspace\_name](#input\_backend\_workspace\_name) | The name of the workspace used to manage this HCP Terraform organization. | `string` | `"hcp-terraform-bootstrap"` | no |
