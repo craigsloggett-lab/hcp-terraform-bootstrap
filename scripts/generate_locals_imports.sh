@@ -101,11 +101,11 @@ main() {
   #     project_ids = {
   #       "project" = "id"
   #     }
-  #     variable_set_ids = {
-  #       "variable_set" = "id"
-  #     }
   #     workspace_ids = {
   #       "workspace" = "id"
+  #     }
+  #     variable_set_ids = {
+  #       "variable_set" = "id"
   #     }
   #     oauth_client_ids = {
   #       "oauth_client" = "id"
