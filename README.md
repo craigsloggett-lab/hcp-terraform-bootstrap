@@ -58,11 +58,8 @@ Navigate to GitHub organization settings -> Developer settings -> OAuth Apps to 
 OAuth App for the _organization_ (not an individual user).
 
 The Application name, Homepage URL, and Authorization callback URL fields will be populated
-with information generated in HCP Terraform so scroll past these parameters for now.
-
-
-Ensure the GitHub App can only be installed on this account (which should show the organization
-as the account).
+with information found in HCP Terraform. Device flow can be enabled if desired, but does
+not affect the process either way.
 
 Pause here and open a new window/tab with the HCP Terraform organization open and logged in
 as a user with access to add a VCS Provider.
@@ -70,16 +67,16 @@ as a user with access to add a VCS Provider.
 ###### Add a VCS Provider
 
 Navigate to HCP Terraform organization settings -> Version Control -> Providers to Add a VCS provider.
-Select GitHub -> GitHub.com (Custom) to display the information needed to populate the GitHub App
-creation form.
+Select GitHub -> GitHub.com (Custom) to display the information needed to populate the OAuth application
+registration form.
 
-Back in the GitHub App creation window/tab, copy the Application name, Homepage URL, and Authorization
-callback URL into the relevant fields in the GitHub App configuration.
+Back in GitHub, within the OAuth App registration window/tab, copy the Application name, Homepage URL,
+and Authorization callback URL into the relevant fields in the OAuth App configuration.
 
-Click Create GitHub App and copy the Client ID into the Add VCS Provider window in HCP Terraform and
+Click Register application and copy the Client ID into the Add VCS Provider window in HCP Terraform and
 give the VCS Provider the same name as the GitHub organization being configured.
 
-Finally, in the GitHub App, Generate a new client secret, and copy the secret into the Add VCS Provider
+Finally, in the OAuth App, Generate a new client secret, and copy the secret into the Add VCS Provider
 window in HCP Terraform.
 
 Click Connect and continue to begin the authorization workflow between HCP Terraform and GitHub. At this
