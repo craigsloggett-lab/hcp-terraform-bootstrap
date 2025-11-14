@@ -10,7 +10,8 @@
 # resources.
 #
 # Usage:
-# Ensure `TF_TOKEN_app_terraform_io` is set before running:
+# Ensure `TF_TOKEN_app_terraform_io` is set to a "Team Token" for the _owners_
+# team before running:
 # $ export TF_TOKEN_app_terraform_io="your-token-here"
 #
 # Then execute the script from the root of this repository:
