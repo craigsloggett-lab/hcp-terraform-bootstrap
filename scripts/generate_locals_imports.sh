@@ -14,7 +14,7 @@
 # $ export TF_TOKEN_app_terraform_io="your-token-here"
 #
 # Then execute the script from the root of this repository:
-# $ .local/bin/generate_locals_imports
+# $ scripts/generate_locals_imports.sh
 #
 # Dependencies:
 #   - jq (for JSON parsing)
@@ -35,7 +35,7 @@ main() {
   done
 
   script_path="$(cd "$(dirname "$0")" && pwd)"
-  module_path="${script_path}/../.."
+  module_path="${script_path}/.."
   locals_imports_file="${module_path}/locals_imports.tf"
 
   # Check if the identifier is valid HCL syntax.
@@ -86,7 +86,7 @@ main() {
   # IDs populated based on the HCP Terraform organization being managed:
   #
   # # This file is generated automatically using:
-  # `.local/bin/generate_locals_imports`
+  # `scripts/generate_locals_imports.sh`
   #
   # locals {
   #   imports = {
@@ -107,26 +107,8 @@ main() {
   #     workspace_ids = {
   #       "workspace" = "id"
   #     }
-  #     ssh_key_ids = {
-  #       "ssh_key" = "id"
-  #     }
-  #     notification_configuration_ids = {
-  #       "notification" = "id"
-  #     }
   #     oauth_client_ids = {
   #       "oauth_client" = "id"
-  #     }
-  #     policy_set_ids = {
-  #       "policy_set" = "id"
-  #     }
-  #     registry_module_ids = {
-  #       "module" = "id"
-  #     }
-  #     run_task_ids = {
-  #       "run_task" = "id"
-  #     }
-  #     agent_pool_ids = {
-  #       "agent_pool" = "id"
   #     }
   #   }
   # }
@@ -138,7 +120,7 @@ main() {
   {
     printf '# This file is generated automatically using:\n'
     # shellcheck disable=SC2016
-    printf '# `.local/bin/generate_locals_imports`\n\n'
+    printf '# `scripts/generate_locals_imports.sh`\n\n'
     printf 'locals {\n'
     printf 'imports = {\n'
   } >>"${locals_imports_file}"
@@ -249,50 +231,6 @@ main() {
     printf '%s\n' "}"
   } >>"${locals_imports_file}"
 
-  ssh_key_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/ssh-keys |
-      jq -r '.data[].id' |
-      while read -r ssh_key_id; do
-        ssh_key_name="$(
-          curl "$@" https://app.terraform.io/api/v2/ssh-keys/"${ssh_key_id}" |
-            jq -r '.data.attributes.name'
-        )"
-        print_attribute "${ssh_key_name}" "${ssh_key_id}"
-      done
-  )"
-
-  if [ -n "${ssh_key_ids}" ]; then
-    {
-      printf '%s\n' "ssh_key_ids = {"
-      printf '%s\n' "${ssh_key_ids}"
-      printf '%s\n' "}"
-    } >>"${locals_imports_file}"
-  fi
-
-  notification_configuration_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/workspaces |
-      jq -r '.data[].id' |
-      while read -r workspace_id; do
-        curl "$@" https://app.terraform.io/api/v2/workspaces/"${workspace_id}"/notification-configurations |
-          jq -r '.data[]? | .id' |
-          while read -r notification_id; do
-            notification_name="$(
-              curl "$@" https://app.terraform.io/api/v2/notification-configurations/"${notification_id}" |
-                jq -r '.data.attributes.name'
-            )"
-            print_attribute "${notification_name}" "${notification_id}"
-          done
-      done
-  )"
-
-  if [ -n "${notification_configuration_ids}" ]; then
-    {
-      printf '%s\n' "notification_configuration_ids = {"
-      printf '%s\n' "${notification_configuration_ids}"
-      printf '%s\n' "}"
-    } >>"${locals_imports_file}"
-  fi
-
   oauth_client_ids="$(
     curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/oauth-clients |
       jq -r '.data[].id' |
@@ -309,86 +247,6 @@ main() {
     {
       printf '%s\n' "oauth_client_ids = {"
       printf '%s\n' "${oauth_client_ids}"
-      printf '%s\n' "}"
-    } >>"${locals_imports_file}"
-  fi
-
-  policy_set_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/policy-sets |
-      jq -r '.data[].id' |
-      while read -r policy_set_id; do
-        policy_set_name="$(
-          curl "$@" https://app.terraform.io/api/v2/policy-sets/"${policy_set_id}" |
-            jq -r '.data.attributes.name'
-        )"
-        print_attribute "${policy_set_name}" "${policy_set_id}"
-      done
-  )"
-
-  if [ -n "${policy_set_ids}" ]; then
-    {
-      printf '%s\n' "policy_set_ids = {"
-      printf '%s\n' "${policy_set_ids}"
-      printf '%s\n' "}"
-    } >>"${locals_imports_file}"
-  fi
-
-  registry_module_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/registry-modules |
-      jq -r '.data[].id' |
-      while read -r registry_module_id; do
-        registry_module_name="$(
-          curl "$@" https://app.terraform.io/api/v2/registry-modules/"${registry_module_id}" |
-            jq -r '.data.attributes.name'
-        )"
-        print_attribute "${registry_module_name}" "${registry_module_id}"
-      done
-  )"
-
-  if [ -n "${registry_module_ids}" ]; then
-    {
-      printf '%s\n' "registry_module_ids = {"
-      printf '%s\n' "${registry_module_ids}"
-      printf '%s\n' "}"
-    } >>"${locals_imports_file}"
-  fi
-
-  run_task_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/tasks |
-      jq -r '.data[].id' |
-      while read -r run_task_id; do
-        run_task_name="$(
-          curl "$@" https://app.terraform.io/api/v2/tasks/"${run_task_id}" |
-            jq -r '.data.attributes.name'
-        )"
-        print_attribute "${run_task_name}" "${run_task_id}"
-      done
-  )"
-
-  if [ -n "${run_task_ids}" ]; then
-    {
-      printf '%s\n' "run_task_ids = {"
-      printf '%s\n' "${run_task_ids}"
-      printf '%s\n' "}"
-    } >>"${locals_imports_file}"
-  fi
-
-  agent_pool_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/agent-pools |
-      jq -r '.data[].id' |
-      while read -r agent_pool_id; do
-        agent_pool_name="$(
-          curl "$@" https://app.terraform.io/api/v2/agent-pools/"${agent_pool_id}" |
-            jq -r '.data.attributes.name'
-        )"
-        print_attribute "${agent_pool_name}" "${agent_pool_id}"
-      done
-  )"
-
-  if [ -n "${agent_pool_ids}" ]; then
-    {
-      printf '%s\n' "agent_pool_ids = {"
-      printf '%s\n' "${agent_pool_ids}"
       printf '%s\n' "}"
     } >>"${locals_imports_file}"
   fi
