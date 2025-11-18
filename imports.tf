@@ -10,7 +10,7 @@ import {
   to = tfe_team.owners
 }
 
-# The organization membership of each user that comes with the HCP Terraform 
+# The organization membership of each user that comes with the HCP Terraform
 # organization. These users are all placed in the `owners` team by default.
 import {
   for_each = local.imports.organization_membership_ids.owners
@@ -42,7 +42,7 @@ import {
   to = tfe_workspace.backend
 }
 
-# The `TFE Provider Authentication` variable set. 
+# The `TFE Provider Authentication` variable set.
 # This contains the `TFE_TOKEN` environment variable used to authenticate the
 # TFE provider.
 import {
