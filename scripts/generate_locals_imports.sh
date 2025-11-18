@@ -136,8 +136,10 @@ main() {
       jq -r '.data[].attributes.name'
   )"
 
+  teams_json="$(curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/teams)"
+
   team_ids="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/teams |
+    printf '%s\n' "${teams_json}" |
       jq -r '.data[].id' |
       while read -r team_id; do
         team_name="$(
@@ -155,7 +157,7 @@ main() {
   } >>"${locals_imports_file}"
 
   owners_team_id="$(
-    curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/teams |
+    printf '%s\n' "${teams_json}" |
       jq -r '.data[] | select(.attributes.name == "owners") | .id'
   )"
 
@@ -163,15 +165,21 @@ main() {
     curl "$@" https://app.terraform.io/api/v2/teams/"${owners_team_id}" |
       jq -r '.data.relationships."organization-memberships".data[].id' |
       while read -r organization_membership_id; do
+        organization_membership_json="$(
+          curl "$@" https://app.terraform.io/api/v2/organization-memberships/"${organization_membership_id}"
+        )"
+
         user_id="$(
-          curl "$@" https://app.terraform.io/api/v2/organization-memberships/"${organization_membership_id}" |
+          printf '%s\n' "${organization_membership_json}" |
             jq -r '.data.relationships.user.data.id'
         )"
+
         email="$(
-          curl "$@" https://app.terraform.io/api/v2/organization-memberships/"${organization_membership_id}" |
+          printf '%s\n' "${organization_membership_json}" |
             jq -r '.data.attributes.email'
         )"
-        if ! curl "$@" "https://app.terraform.io/api/v2/users/${user_id}" |
+
+        if ! curl "$@" https://app.terraform.io/api/v2/users/"${user_id}" |
           jq -e '.data.attributes."is-service-account"' >/dev/null; then
           print_attribute "${email}" "${organization_membership_id}"
         fi
