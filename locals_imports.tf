@@ -1,4 +1,6 @@
-# This file is generated automatically using: `.local/bin/generate_locals_imports`.
+# This file is generated automatically using:
+# `scripts/generate_locals_imports.sh`
+
 locals {
   imports = {
     team_ids = {
@@ -19,15 +21,18 @@ locals {
     project_ids = {
       Administration    = "prj-LMG8bhhEpUzg9rrb"
       "Default Project" = "prj-1ifijXyay7xeH9Zc"
+      Modules           = "prj-bQ2amwBJzTyARnL1"
+      Stacks            = "prj-FDhpzFrAfccvBno4"
     }
     variable_set_ids = {
       "TFE Provider Authentication" = "varset-FwFGK65suTr7eaAA"
     }
     workspace_ids = {
       hcp-terraform-bootstrap = "ws-dAs6ozkxSPBE4Td9"
+      hcp-terraform-admin     = "ws-NJNrsMM37W7AgWNx"
     }
     oauth_client_ids = {
-      craigsloggett-lab = "oc-PD4QDUZar9ic3kWG"
+      craigsloggett-lab = "oc-uR6kEX1Xt6fqLhTB"
     }
   }
 }
