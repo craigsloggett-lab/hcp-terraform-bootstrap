@@ -90,12 +90,14 @@ to be a member of the HCP Terraform organization.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.7 |
+| <a name="requirement_external"></a> [external](#requirement\_external) | 2.3.5 |
 | <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | 0.71.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
+| <a name="provider_external"></a> [external](#provider\_external) | 2.3.5 |
 | <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.71.0 |
 
 ## Modules
@@ -108,39 +110,24 @@ No modules.
 |------|------|
 | [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization) | resource |
 | [tfe_organization_membership.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization_membership) | resource |
-| [tfe_project.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project) | resource |
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project) | resource |
-| [tfe_project_variable_set.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project_variable_set) | resource |
-| [tfe_team.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team) | resource |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team) | resource |
-| [tfe_team_organization_members.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_organization_members) | resource |
-| [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_organization_members) | resource |
-| [tfe_team_project_access.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_project_access) | resource |
-| [tfe_team_project_access.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_project_access) | resource |
-| [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/variable_set) | resource |
-| [tfe_workspace.admin](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/workspace) | resource |
-| [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/workspace) | resource |
-| [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/oauth_client) | data source |
-| [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_membership) | data source |
+| [external_external.owners_team_emails](https://registry.terraform.io/providers/hashicorp/external/2.3.5/docs/data-sources/external) | data source |
+| [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization) | data source |
+| [tfe_organization_members.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_members) | data source |
+| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_membership) | data source |
+| [tfe_organizations.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organizations) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_admins_team_emails"></a> [admins\_team\_emails](#input\_admins\_team\_emails) | A list of member email addresses for the admins team. | `set(string)` | <pre>[<br/>  "craig.sloggett@hashicorp.com"<br/>]</pre> | no |
-| <a name="input_admins_workspace_name"></a> [admins\_workspace\_name](#input\_admins\_workspace\_name) | The name of the workspace used to manage the rest of the HCP Terraform organization. | `string` | `"hcp-terraform-admin"` | no |
-| <a name="input_backend_project_name"></a> [backend\_project\_name](#input\_backend\_project\_name) | The name of the project containing the workspaces used to manage this HCP Terraform organization. | `string` | `"Administration"` | no |
-| <a name="input_backend_vcs_repository_name"></a> [backend\_vcs\_repository\_name](#input\_backend\_vcs\_repository\_name) | The name of the GitHub repository backing the backend workspace. | `string` | `"hcp-terraform-bootstrap"` | no |
-| <a name="input_backend_workspace_name"></a> [backend\_workspace\_name](#input\_backend\_workspace\_name) | The name of the workspace used to manage this HCP Terraform organization. | `string` | `"hcp-terraform-bootstrap"` | no |
-| <a name="input_github_organization_name"></a> [github\_organization\_name](#input\_github\_organization\_name) | The name of the GitHub organization used to configure the VCS provider. | `string` | `"craigsloggett-lab"` | no |
-| <a name="input_hcp_terraform_admins_team_name"></a> [hcp\_terraform\_admins\_team\_name](#input\_hcp\_terraform\_admins\_team\_name) | The name of the team of users who administer the HCP Terraform organization. | `string` | `"admins"` | no |
-| <a name="input_hcp_terraform_organization_email"></a> [hcp\_terraform\_organization\_email](#input\_hcp\_terraform\_organization\_email) | The notification email address for the HCP Terraform organization being managed. | `string` | `"craig.sloggett@hashicorp.com"` | no |
-| <a name="input_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#input\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform organization being managed. | `string` | `"craigsloggett-lab"` | no |
-| <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A list of member email addresses for the owners team. | `set(string)` | <pre>[<br/>  "craig.sloggett@hashicorp.com"<br/>]</pre> | no |
-| <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | The version of Terraform to use in all workspaces. | `string` | `"1.13.3"` | no |
-| <a name="input_tfe_provider_authentication_variable_set_name"></a> [tfe\_provider\_authentication\_variable\_set\_name](#input\_tfe\_provider\_authentication\_variable\_set\_name) | The name of the variable set used to authenticate the TFE provider. | `string` | `"TFE Provider Authentication"` | no |
+| <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A set of member email addresses for the owners team. | `set(string)` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_local_emails"></a> [local\_emails](#output\_local\_emails) | Membership details |
+| <a name="output_members"></a> [members](#output\_members) | Membership details |
 <!-- END_TF_DOCS -->

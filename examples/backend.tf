@@ -4,7 +4,7 @@ terraform {
 
     workspaces {
       project = "Administration"          # Update the `backend_project_name` variable to match.
-      name    = "hcp-terraform-bootstrap" # Update the `backend_workspace_name` variable to match.
+      name    = "terraform-tfe-bootstrap" # Update the `backend_workspace_name` variable to match.
     }
   }
 }
