@@ -10,12 +10,8 @@ locals {
     }
     organization_membership_ids = {
       owners = {
-        "craig.sloggett@hashicorp.com"                                     = "ou-tSVPjvXHB4iTqcPb"
-        "doormat@hashicorp.com"                                            = "ou-9KRr8gq4h6JikktE"
-        "api-org-craigsloggett-lab-xqsus22ynh@hashicorp.com"               = "ou-EhS6WkPBDVPxYYqd"
-        "api-team_1202828@hashicorp.com"                                   = "ou-mLy6EZTkP2bKW9w3"
-        "gh-webhooks-craigsloggett-lab-db12onjulf@hashicorp.com"           = "ou-j7QUTL6CcJUktJJC"
-        "auto-run-cancellation-craigsloggett-lab-hc4myy8g8d@hashicorp.com" = "ou-UoaqXuzXho14SSwo"
+        "craig.sloggett@hashicorp.com" = "ou-tSVPjvXHB4iTqcPb"
+        "doormat@hashicorp.com"        = "ou-9KRr8gq4h6JikktE"
       }
     }
     project_ids = {
