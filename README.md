@@ -128,6 +128,7 @@ No modules.
 | [tfe_team_project_access.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/team_project_access) | resource |
 | [tfe_team_project_access.default](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/team_project_access) | resource |
 | [tfe_variable_set.tfe_provider_authentication](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/variable_set) | resource |
+| [tfe_workspace.admin](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/workspace) | resource |
 | [tfe_workspace.backend](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/resources/workspace) | resource |
 | [tfe_oauth_client.github](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/data-sources/oauth_client) | data source |
 | [tfe_organization_membership.admins](https://registry.terraform.io/providers/hashicorp/tfe/0.70.0/docs/data-sources/organization_membership) | data source |
@@ -137,6 +138,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_admins_team_emails"></a> [admins\_team\_emails](#input\_admins\_team\_emails) | A list of member email addresses for the admins team. | `set(string)` | <pre>[<br/>  "craig.sloggett@hashicorp.com"<br/>]</pre> | no |
+| <a name="input_admins_workspace_name"></a> [admins\_workspace\_name](#input\_admins\_workspace\_name) | The name of the workspace used to manage the rest of the HCP Terraform organization. | `string` | `"hcp-terraform-admin"` | no |
 | <a name="input_backend_project_name"></a> [backend\_project\_name](#input\_backend\_project\_name) | The name of the project containing the workspaces used to manage this HCP Terraform organization. | `string` | `"Administration"` | no |
 | <a name="input_backend_vcs_repository_name"></a> [backend\_vcs\_repository\_name](#input\_backend\_vcs\_repository\_name) | The name of the GitHub repository backing the backend workspace. | `string` | `"hcp-terraform-bootstrap"` | no |
 | <a name="input_backend_workspace_name"></a> [backend\_workspace\_name](#input\_backend\_workspace\_name) | The name of the workspace used to manage this HCP Terraform organization. | `string` | `"hcp-terraform-bootstrap"` | no |
