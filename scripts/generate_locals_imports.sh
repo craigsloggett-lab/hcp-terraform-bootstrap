@@ -163,11 +163,18 @@ main() {
     curl "$@" https://app.terraform.io/api/v2/teams/"${owners_team_id}" |
       jq -r '.data.relationships."organization-memberships".data[].id' |
       while read -r organization_membership_id; do
+        user_id="$(
+          curl "$@" https://app.terraform.io/api/v2/organization-memberships/"${organization_membership_id}" |
+            jq -r '.data.relationships.user.data.id'
+        )"
         email="$(
           curl "$@" https://app.terraform.io/api/v2/organization-memberships/"${organization_membership_id}" |
             jq -r '.data.attributes.email'
         )"
-        print_attribute "${email}" "${organization_membership_id}"
+        if ! curl "$@" "https://app.terraform.io/api/v2/users/${user_id}" |
+          jq -e '.data.attributes."is-service-account"' >/dev/null; then
+          print_attribute "${email}" "${organization_membership_id}"
+        fi
       done
   )"
 
