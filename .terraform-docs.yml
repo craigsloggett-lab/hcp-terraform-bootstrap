@@ -1,0 +1,44 @@
+formatter: markdown table
+
+recursive:
+  enabled: false
+
+content: |-
+  ## Usage
+
+  ```hcl
+  # main.tf
+
+  {{ include "examples/main.tf" }}
+
+  # variables.tf
+
+  {{ include "examples/variables.tf" }}
+
+  # providers.tf
+
+  {{ include "examples/providers.tf" }}
+
+  # inputs.auto.tfvars
+
+  {{ include "examples/inputs.auto.tfvars.example" }}
+  ```
+
+  {{ .Requirements }}
+
+  {{ .Providers }}
+
+  {{ .Modules }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+output:
+  file: README.md
+  mode: inject
+
+settings:
+  lockfile: false
