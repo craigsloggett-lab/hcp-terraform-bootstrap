@@ -85,6 +85,28 @@ user account. It is important to note that the email used for the GitHub _servic
 to be a member of the HCP Terraform organization.
 
 <!-- BEGIN_TF_DOCS -->
+## Usage
+
+```hcl
+# main.tf
+
+module "terraform_tfe_bootstrap" {
+  source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=v0.10.0"
+}
+
+# variables.tf
+
+
+
+# providers.tf
+
+provider "tfe" {}
+
+# inputs.auto.tfvars
+
+
+```
+
 ## Requirements
 
 | Name | Version |
