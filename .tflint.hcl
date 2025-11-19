@@ -1,12 +1,9 @@
-# Settings are described here: https://github.com/terraform-linters/tflint/blob/main/docs/user-guide/config.md
 config {
   format              = "default"
   call_module_type    = "all"
   force               = false
   disabled_by_default = false
 }
-
-# Default Terraform ruleset described here: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md
 
 # Disallow specifying a git repository as a module source without pinning to a version.
 rule "terraform_module_pinned_source" {
@@ -28,7 +25,7 @@ rule "terraform_naming_convention" {
 
 plugin "terraform" {
   enabled = true
-  version = "0.10.0"
+  version = "0.13.0"
   source  = "github.com/terraform-linters/tflint-ruleset-terraform"
   preset  = "all"
 }
