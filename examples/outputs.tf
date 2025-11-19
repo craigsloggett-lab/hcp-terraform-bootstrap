@@ -5,10 +5,15 @@ output "hcp_terraform_organization_name" {
 
 output "hcp_terraform_organization_membership" {
   value       = module.terraform_tfe_bootstrap.hcp_terraform_organization_membership
-  description = "A map of user details for members in the HCP Terraform Organization."
+  description = "The members (users) of the HCP Terraform Organization."
+}
+
+output "owners_team_id" {
+  value       = module.terraform_tfe_bootstrap.owners_team_id
+  description = "The ID of the 'owners' team."
 }
 
 output "default_project_id" {
   value       = module.terraform_tfe_bootstrap.default_project_id
-  description = "The ID of the Default Project."
+  description = "The ID of the 'Default Project' project."
 }

@@ -19,10 +19,10 @@ import {
 }
 
 # The members of the "owners" team.
-#import {
-#  id = "${module.terraform_tfe_bootstrap.hcp_terraform_organization_name}/owners"
-#  to = module.terraform_tfe_bootstrap.tfe_team.owners
-#}
+import {
+  id = module.terraform_tfe_bootstrap.owners_team_id
+  to = module.terraform_tfe_bootstrap.tfe_team_organization_members.owners
+}
 
 # The "Default Project" project.
 import {
