@@ -18,7 +18,7 @@ content: |-
   # providers.tf
 
   {{ include "examples/providers.tf" }}
-
+  ```
   {{ .Requirements }}
 
   {{ .Providers }}

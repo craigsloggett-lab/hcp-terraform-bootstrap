@@ -51,7 +51,7 @@ import {
 # providers.tf
 
 provider "tfe" {}
-
+```
 ## Requirements
 
 | Name | Version |
