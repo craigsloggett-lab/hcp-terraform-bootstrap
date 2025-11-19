@@ -1,10 +1,93 @@
 # HCP Terraform Admin
 
-An infrastructure as code repository to manage an HCP Terraform organization.
+A Terraform module used to quickly import the resources that come by default with every HCP Terraform organization.
 
-## Manual Setup
+<!-- BEGIN_TF_DOCS -->
+## Usage
 
-The following steps must be taken before being able to run the code in this repository.
+```hcl
+# main.tf
+
+# This module requires no inputs, all of the "magic" can be seen in the `imports.tf` file.
+
+module "terraform_tfe_bootstrap" {
+  source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=v0.10.0"
+}
+
+# imports.tf
+
+# The HCP Terraform organization.
+import {
+  id = module.terraform_tfe_bootstrap.hcp_terraform_organization_name
+  to = module.terraform_tfe_bootstrap.tfe_organization.this
+}
+
+# The members of the HCP Terraform organization.
+import {
+  for_each = module.terraform_tfe_bootstrap.hcp_terraform_organization_membership
+
+  id = each.key
+  to = module.terraform_tfe_bootstrap.tfe_organization_membership.this[each.key]
+}
+
+# The "owners" team.
+import {
+  id = "${module.terraform_tfe_bootstrap.hcp_terraform_organization_name}/owners"
+  to = module.terraform_tfe_bootstrap.tfe_team.owners
+}
+
+# The members of the "owners" team.
+import {
+  id = module.terraform_tfe_bootstrap.owners_team_id
+  to = module.terraform_tfe_bootstrap.tfe_team_organization_members.owners
+}
+
+# The "Default Project" project.
+import {
+  id = module.terraform_tfe_bootstrap.default_project_id
+  to = module.terraform_tfe_bootstrap.tfe_project.default
+}
+
+# providers.tf
+
+provider "tfe" {}
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.7 |
+| <a name="requirement_external"></a> [external](#requirement\_external) | 2.3.5 |
+| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | 0.71.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_external"></a> [external](#provider\_external) | 2.3.5 |
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.71.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization) | resource |
+| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization_membership) | resource |
+| [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project) | resource |
+| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team) | resource |
+| [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_organization_members) | resource |
+| [external_external.owners_team_emails](https://registry.terraform.io/providers/hashicorp/external/2.3.5/docs/data-sources/external) | data source |
+| [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization) | data source |
+| [tfe_organization_members.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_members) | data source |
+| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_membership) | data source |
+| [tfe_organizations.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organizations) | data source |
+| [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/project) | data source |
+| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/team) | data source |
+<!-- END_TF_DOCS -->
+
+## Manual Onboarding Setup
+
+The following steps can be used as a guide when onboarding a new repository.
 
 ### HashiCorp Cloud Platform
 
@@ -22,17 +105,6 @@ The following steps must be taken before being able to run the code in this repo
 6. Manually create a variable set for the purpose of authenticating the TFE provider.
 7. Populate the variable set with the `TFE_TOKEN` environment variable, using the API token as the (sensitive) value.
 8. Assign the variable set to the backend workspace (or project).
-9. Create a `defaults.auto.tfvars` file with the values for your HCP Terraform organization.
-
-#### Generate the `locals_imports.tf` File
-
-To generate a `locals` block containing the IDs of the resources to bring under
-management, review and run the script in [`scripts/generate_locals_imports.sh`](scripts/generate_locals_imports.sh):
-
-```sh
-# Grab the API token from the ~/.terraform.d/credentials.tfrc.json file generated during `terraform login`.
-export TF_TOKEN_app_terraform_io="$(jq -r '.credentials."app.terraform.io".token' "${HOME}/.terraform.d/credentials.tfrc.json")"; /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/craigsloggett-lab/hcp-terraform-bootstrap/refs/heads/main/scripts/generate_locals_imports.sh)"
-```
 
 #### VCS Integration with GitHub
 
@@ -83,76 +155,3 @@ Click Connect and continue to begin the authorization workflow between HCP Terra
 point it is important to be logged into GitHub using your _service account_ created earlier, not your
 user account. It is important to note that the email used for the GitHub _service account_ does not need
 to be a member of the HCP Terraform organization.
-
-<!-- BEGIN_TF_DOCS -->
-## Usage
-
-```hcl
-# main.tf
-
-module "terraform_tfe_bootstrap" {
-  source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=v0.10.0"
-}
-
-# variables.tf
-
-
-
-# providers.tf
-
-provider "tfe" {}
-
-# inputs.auto.tfvars
-
-
-```
-
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.7 |
-| <a name="requirement_external"></a> [external](#requirement\_external) | 2.3.5 |
-| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | 0.71.0 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_external"></a> [external](#provider\_external) | 2.3.5 |
-| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.71.0 |
-
-## Modules
-
-No modules.
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization) | resource |
-| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization_membership) | resource |
-| [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project) | resource |
-| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team) | resource |
-| [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_organization_members) | resource |
-| [external_external.owners_team_emails](https://registry.terraform.io/providers/hashicorp/external/2.3.5/docs/data-sources/external) | data source |
-| [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization) | data source |
-| [tfe_organization_members.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_members) | data source |
-| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_membership) | data source |
-| [tfe_organizations.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organizations) | data source |
-| [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/project) | data source |
-| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/team) | data source |
-
-## Inputs
-
-No inputs.
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_default_project_id"></a> [default\_project\_id](#output\_default\_project\_id) | The ID of the 'Default Project' project. |
-| <a name="output_hcp_terraform_organization_membership"></a> [hcp\_terraform\_organization\_membership](#output\_hcp\_terraform\_organization\_membership) | The members (users) of the HCP Terraform Organization. |
-| <a name="output_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#output\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform Organization. |
-| <a name="output_owners_team_id"></a> [owners\_team\_id](#output\_owners\_team\_id) | The ID of the 'owners' team. |
-<!-- END_TF_DOCS -->

@@ -11,30 +11,19 @@ content: |-
 
   {{ include "examples/main.tf" }}
 
-  # variables.tf
+  # imports.tf
 
-  {{ include "examples/variables.tf" }}
+  {{ include "examples/imports.tf" }}
 
   # providers.tf
 
   {{ include "examples/providers.tf" }}
 
-  # inputs.auto.tfvars
-
-  {{ include "examples/inputs.auto.tfvars.example" }}
-  ```
-
   {{ .Requirements }}
 
   {{ .Providers }}
 
-  {{ .Modules }}
-
   {{ .Resources }}
-
-  {{ .Inputs }}
-
-  {{ .Outputs }}
 
 output:
   file: README.md
