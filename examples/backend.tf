@@ -4,7 +4,7 @@ terraform {
 
     workspaces {
       project = "Administration"
-      name    = "terraform-tfe-bootstrap"
+      name    = "hcp-terraform-admin"
     }
   }
 }
