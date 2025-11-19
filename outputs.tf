@@ -5,10 +5,10 @@ output "hcp_terraform_organization_name" {
 
 output "hcp_terraform_organization_membership" {
   value       = data.tfe_organization_membership.this
-  description = "A map of user details for members in the HCP Terraform Organization."
+  description = "The members (users) of the HCP Terraform Organization."
 }
 
 output "default_project_id" {
   value       = data.tfe_project.default.id
-  description = "The ID of the Default Project."
+  description = "The ID of the 'Default Project' project."
 }

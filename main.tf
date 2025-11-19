@@ -54,16 +54,16 @@ resource "tfe_organization" "this" {
   assessments_enforced = true
 }
 
-resource "tfe_team" "owners" {
-  name         = "owners"
-  organization = tfe_organization.this.name
-}
-
 resource "tfe_organization_membership" "this" {
   for_each = data.tfe_organization_membership.this
 
   organization = tfe_organization.this.name
   email        = each.value.email
+}
+
+resource "tfe_team" "owners" {
+  name         = "owners"
+  organization = tfe_organization.this.name
 }
 
 resource "tfe_project" "default" {

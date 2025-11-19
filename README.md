@@ -109,7 +109,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization) | resource |
-| [tfe_organization_membership.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization_membership) | resource |
+| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization_membership) | resource |
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project) | resource |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team) | resource |
 | [external_external.owners_team_emails](https://registry.terraform.io/providers/hashicorp/external/2.3.5/docs/data-sources/external) | data source |
@@ -117,17 +117,17 @@ No modules.
 | [tfe_organization_members.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_members) | data source |
 | [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_membership) | data source |
 | [tfe_organizations.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organizations) | data source |
+| [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/project) | data source |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_owners_team_emails"></a> [owners\_team\_emails](#input\_owners\_team\_emails) | A set of member email addresses for the owners team. | `set(string)` | n/a | yes |
+No inputs.
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_local_emails"></a> [local\_emails](#output\_local\_emails) | Membership details |
-| <a name="output_members"></a> [members](#output\_members) | Membership details |
+| <a name="output_default_project_id"></a> [default\_project\_id](#output\_default\_project\_id) | The ID of the 'Default Project' project. |
+| <a name="output_hcp_terraform_organization_membership"></a> [hcp\_terraform\_organization\_membership](#output\_hcp\_terraform\_organization\_membership) | The members (users) of the HCP Terraform Organization. |
+| <a name="output_hcp_terraform_organization_name"></a> [hcp\_terraform\_organization\_name](#output\_hcp\_terraform\_organization\_name) | The name of the HCP Terraform Organization. |
 <!-- END_TF_DOCS -->
