@@ -3,8 +3,7 @@
 module "terraform_tfe_bootstrap" {
   source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=restructure-as-module"
 
-  hcp_terraform_organization = {
-    allow_force_delete_workspaces = false
-
+  hcp_terraform_organization {
+    allow_force_delete_workspaces = true
   }
 }
