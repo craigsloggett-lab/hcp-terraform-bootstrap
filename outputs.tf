@@ -1,6 +1,9 @@
-output "hcp_terraform_organization_name" {
-  value       = data.tfe_organization.this.name
-  description = "The name of the HCP Terraform Organization."
+output "hcp_terraform_organization" {
+  value = {
+    id   = data.tfe_organization.this.id
+    name = data.tfe_organization.this.name
+  }
+  description = "Details about the tfe_organization resource."
 }
 
 output "hcp_terraform_organization_membership" {
@@ -8,20 +11,16 @@ output "hcp_terraform_organization_membership" {
   description = "The members (users) of the HCP Terraform Organization."
 }
 
-output "owners_team_id" {
-  value       = data.tfe_team.owners.id
+output "owners_team" {
+  value = {
+    id = data.tfe_team.owners.id
+  }
   description = "The ID of the 'owners' team."
 }
 
-output "default_project_id" {
-  value       = data.tfe_project.default.id
-  description = "The ID of the 'Default Project' project."
-}
-
-output "hcp_terraform_organization" {
+output "default_project" {
   value = {
-    id   = data.tfe_organization.this.id
-    name = data.tfe_organization.this.name
+    id = data.tfe_project.default.id
   }
-  description = "Details about the tfe_organization resource."
+  description = "The ID of the 'Default Project' project."
 }
