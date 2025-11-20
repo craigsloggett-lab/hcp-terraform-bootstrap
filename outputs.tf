@@ -24,3 +24,8 @@ output "default_project" {
   }
   description = "The ID of the 'Default Project' project."
 }
+
+output "hcp_terraform_organization_inputs" {
+  value       = var.hcp_terraform_organization
+  description = "The inputs to the module."
+}

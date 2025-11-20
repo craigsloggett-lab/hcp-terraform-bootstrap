@@ -2,9 +2,9 @@
 
 resource "tfe_organization" "this" {
   name  = data.tfe_organization.this.name
-  email = "craig.sloggett@hashicorp.com"
+  email = var.hcp_terraform_organization.email
 
-  assessments_enforced = true
+  assessments_enforced = var.hcp_terraform_organization.assessments_enforced
 }
 
 resource "tfe_organization_membership" "this" {
