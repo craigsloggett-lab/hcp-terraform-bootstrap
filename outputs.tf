@@ -17,3 +17,11 @@ output "default_project_id" {
   value       = data.tfe_project.default.id
   description = "The ID of the 'Default Project' project."
 }
+
+#output "hcp_terraform_organization" {
+#  value = {
+#    id   = data.tfe_organization.this.id
+#    name = data.tfe_organization.this.name
+#  }
+#  description = "Details about the tfe_organization resource."
+#}

@@ -1,6 +1,8 @@
-# HCP Terraform Admin
+# terraform-tfe-bootstrap
 
-A Terraform module used to quickly import the resources that come by default with every HCP Terraform organization.
+A Terraform module to easily import the resources that come by default with every HCP Terraform organization.
+
+The module defines
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
