@@ -29,3 +29,8 @@ output "tfe_organization_configuration" {
   value       = var.tfe_organization
   description = "The inputs to the module."
 }
+
+output "module_path" {
+  value       = path.module
+  description = "The path to the module."
+}
