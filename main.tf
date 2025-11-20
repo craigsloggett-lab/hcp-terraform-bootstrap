@@ -2,9 +2,18 @@
 
 resource "tfe_organization" "this" {
   name  = data.tfe_organization.this.name
-  email = var.hcp_terraform_organization.email
+  email = var.tfe_organization.email
 
-  assessments_enforced = var.hcp_terraform_organization.assessments_enforced
+  collaborator_auth_policy            = var.tfe_organization.collaborator_auth_policy
+  owners_team_saml_role_id            = var.tfe_organization.owners_team_saml_role_id
+  session_timeout_minutes             = var.tfe_organization.session_timeout_minutes
+  session_remember_minutes            = var.tfe_organization.session_remember_minutes
+  enforce_hyok                        = var.tfe_organization.enforce_hyok
+  cost_estimation_enabled             = var.tfe_organization.cost_estimation_enabled
+  aggregated_commit_status_enabled    = var.tfe_organization.aggregated_commit_status_enabled
+  speculative_plan_management_enabled = var.tfe_organization.speculative_plan_management_enabled
+  assessments_enforced                = var.tfe_organization.assessments_enforced
+  allow_force_delete_workspaces       = var.tfe_organization.allow_force_delete_workspaces
 }
 
 resource "tfe_organization_membership" "this" {
