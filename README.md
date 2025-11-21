@@ -2,25 +2,25 @@
 
 A Terraform module to easily import the resources that come by default with every HCP Terraform organization.
 
-The module defines
-
 <!-- BEGIN_TF_DOCS -->
 ## Usage
 
 ```hcl
 # main.tf
 
-# This module requires no inputs, all of the "magic" can be seen in the `imports.tf` file.
-
 module "terraform_tfe_bootstrap" {
   source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=v0.10.0"
+
+  tfe_organization = {
+    email = "craig.sloggett@hashicorp.com"
+  }
 }
 
 # imports.tf
 
 # The HCP Terraform organization.
 import {
-  id = module.terraform_tfe_bootstrap.hcp_terraform_organization_name
+  id = module.terraform_tfe_bootstrap.hcp_terraform_organization.name
   to = module.terraform_tfe_bootstrap.tfe_organization.this
 }
 
@@ -34,19 +34,19 @@ import {
 
 # The "owners" team.
 import {
-  id = "${module.terraform_tfe_bootstrap.hcp_terraform_organization_name}/owners"
+  id = "${module.terraform_tfe_bootstrap.hcp_terraform_organization.name}/${module.terraform_tfe_bootstrap.owners_team.id}"
   to = module.terraform_tfe_bootstrap.tfe_team.owners
 }
 
 # The members of the "owners" team.
 import {
-  id = module.terraform_tfe_bootstrap.owners_team_id
+  id = module.terraform_tfe_bootstrap.owners_team.id
   to = module.terraform_tfe_bootstrap.tfe_team_organization_members.owners
 }
 
 # The "Default Project" project.
 import {
-  id = module.terraform_tfe_bootstrap.default_project_id
+  id = module.terraform_tfe_bootstrap.default_project.id
   to = module.terraform_tfe_bootstrap.tfe_project.default
 }
 
