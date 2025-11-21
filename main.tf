@@ -22,7 +22,7 @@ resource "tfe_organization_membership" "this" {
   for_each = data.tfe_organization_membership.this
 
   organization = tfe_organization.this.name
-  email        = each.value.email
+  email        = each.email
 }
 
 resource "tfe_team" "owners" {
