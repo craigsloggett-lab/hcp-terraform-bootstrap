@@ -13,4 +13,5 @@ variable "tfe_organization" {
     assessments_enforced                                    = optional(bool, true)
     allow_force_delete_workspaces                           = optional(bool, false)
   })
+  default = {}
 }
