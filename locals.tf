@@ -1,11 +1,11 @@
 locals {
-  # The `owners_team_emails` local variable combines user-provided email
-  # addresses from `var.owners_team_emails` with the default organization
-  # membership emails from `local.imports.organization_membership_ids.owners`.
-  # The setunion() function guarantees that both manually added and 
-  # system-defined owners are included without duplicates.
-  owners_team_emails = toset(setunion(
-    keys(local.imports.organization_membership_ids.owners),
-    var.owners_team_emails,
-  ))
+  # The output of the `external` data source is a jsonencoded string so
+  # this local variable does the jsondecode in one spot and converts it
+  # to a "set" for convenience when used with "for_each".
+  owners_team_emails = toset(jsondecode(data.external.owners_team_emails.result.emails))
+
+  owners_team_organization_membership_ids = [
+    for id, membership in data.tfe_organization_membership.this : membership.organization_membership_id
+    if contains(local.owners_team_emails, membership.email)
+  ]
 }

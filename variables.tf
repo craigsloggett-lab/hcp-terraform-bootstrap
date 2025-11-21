@@ -1,77 +1,17 @@
-# Bootstrap Configuration
-
-variable "hcp_terraform_organization_name" {
-  type        = string
-  description = "The name of the HCP Terraform organization being managed."
-  default     = "craigsloggett-lab"
-}
-
-variable "hcp_terraform_organization_email" {
-  type        = string
-  description = "The notification email address for the HCP Terraform organization being managed."
-  default     = "craig.sloggett@hashicorp.com"
-}
-
-variable "backend_project_name" {
-  type        = string
-  description = "The name of the project containing the workspaces used to manage this HCP Terraform organization."
-  default     = "Administration"
-}
-
-variable "backend_workspace_name" {
-  type        = string
-  description = "The name of the workspace used to manage this HCP Terraform organization."
-  default     = "hcp-terraform-bootstrap"
-}
-
-variable "backend_vcs_repository_name" {
-  type        = string
-  description = "The name of the GitHub repository backing the backend workspace."
-  default     = "hcp-terraform-bootstrap"
-}
-
-variable "tfe_provider_authentication_variable_set_name" {
-  type        = string
-  description = "The name of the variable set used to authenticate the TFE provider."
-  default     = "TFE Provider Authentication"
-}
-
-variable "terraform_version" {
-  type        = string
-  description = "The version of Terraform to use in all workspaces."
-  default     = "1.13.3"
-}
-
-# Organization Configuration
-
-variable "owners_team_emails" {
-  type        = set(string)
-  description = "A list of member email addresses for the owners team."
-  default     = ["craig.sloggett@hashicorp.com"]
-}
-
-variable "hcp_terraform_admins_team_name" {
-  type        = string
-  description = "The name of the team of users who administer the HCP Terraform organization."
-  default     = "admins"
-}
-
-variable "admins_team_emails" {
-  type        = set(string)
-  description = "A list of member email addresses for the admins team."
-  default     = ["craig.sloggett@hashicorp.com"]
-}
-
-variable "admins_workspace_name" {
-  type        = string
-  description = "The name of the workspace used to manage the rest of the HCP Terraform organization."
-  default     = "hcp-terraform-admin"
-}
-
-# VCS Configuration
-
-variable "github_organization_name" {
-  type        = string
-  description = "The name of the GitHub organization used to configure the VCS provider."
-  default     = "craigsloggett-lab"
+variable "tfe_organization" {
+  description = "The default arguments for the resources being managed by this module, allowing users to override them."
+  type = object({
+    collaborator_auth_policy                                = optional(string, "password")
+    owners_team_saml_role_id                                = optional(string, "")
+    session_timeout_minutes                                 = optional(number, 0)
+    session_remember_minutes                                = optional(number, 0)
+    enforce_hyok                                            = optional(bool, false)
+    cost_estimation_enabled                                 = optional(bool, false)
+    send_passing_statuses_for_untriggered_speculative_plans = optional(bool, false)
+    aggregated_commit_status_enabled                        = optional(bool, false)
+    speculative_plan_management_enabled                     = optional(bool, true)
+    assessments_enforced                                    = optional(bool, true)
+    allow_force_delete_workspaces                           = optional(bool, false)
+  })
+  default = {}
 }
