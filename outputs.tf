@@ -1,36 +1,32 @@
-output "hcp_terraform_organization" {
+output "tfe_organizations" {
   value = {
-    id   = data.tfe_organization.this.id
-    name = data.tfe_organization.this.name
+    this = {
+      id   = data.tfe_organization.this.id
+      name = data.tfe_organization.this.name
+    }
   }
-  description = "Details about the tfe_organization resource."
+  description = "."
 }
 
-output "hcp_terraform_organization_membership" {
+output "tfe_organization_memberships" {
   value       = data.tfe_organization_membership.this
-  description = "The members (users) of the HCP Terraform Organization."
+  description = "."
 }
 
-output "owners_team" {
+output "tfe_teams" {
   value = {
-    id = data.tfe_team.owners.id
+    owners = {
+      id = data.tfe_team.owners.id
+    }
   }
   description = "The ID of the 'owners' team."
 }
 
-output "default_project" {
+output "tfe_projects" {
   value = {
-    id = data.tfe_project.default.id
+    default = {
+      id = data.tfe_project.default.id
+    }
   }
   description = "The ID of the 'Default Project' project."
-}
-
-output "tfe_organization_configuration" {
-  value       = var.tfe_organization
-  description = "The inputs to the module."
-}
-
-output "module_path" {
-  value       = path.module
-  description = "The path to the module."
 }
