@@ -107,10 +107,10 @@ import {
 
 | Name | Description |
 |------|-------------|
-| <a name="output_tfe_organization_memberships"></a> [tfe\_organization\_memberships](#output\_tfe\_organization\_memberships) | . |
-| <a name="output_tfe_organizations"></a> [tfe\_organizations](#output\_tfe\_organizations) | . |
-| <a name="output_tfe_projects"></a> [tfe\_projects](#output\_tfe\_projects) | The ID of the 'Default Project' project. |
-| <a name="output_tfe_teams"></a> [tfe\_teams](#output\_tfe\_teams) | The ID of the 'owners' team. |
+| <a name="output_tfe_organization_memberships"></a> [tfe\_organization\_memberships](#output\_tfe\_organization\_memberships) | A map of the HCP Terraform organization members, intended to be iterated over to discover users. |
+| <a name="output_tfe_organizations"></a> [tfe\_organizations](#output\_tfe\_organizations) | A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization. |
+| <a name="output_tfe_projects"></a> [tfe\_projects](#output\_tfe\_projects) | A map of the HCP Terraform projects with their 'id' as the only key. Only includes the 'Default Project' project. |
+| <a name="output_tfe_teams"></a> [tfe\_teams](#output\_tfe\_teams) | A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team. |
 <!-- END_TF_DOCS -->
 
 ## Manual Onboarding Setup

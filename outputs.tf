@@ -5,12 +5,12 @@ output "tfe_organizations" {
       name = data.tfe_organization.this.name
     }
   }
-  description = "."
+  description = "A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization."
 }
 
 output "tfe_organization_memberships" {
   value       = data.tfe_organization_membership.this
-  description = "."
+  description = "A map of the HCP Terraform organization members, intended to be iterated over to discover users."
 }
 
 output "tfe_teams" {
@@ -19,7 +19,7 @@ output "tfe_teams" {
       id = data.tfe_team.owners.id
     }
   }
-  description = "The ID of the 'owners' team."
+  description = "A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team."
 }
 
 output "tfe_projects" {
@@ -28,5 +28,5 @@ output "tfe_projects" {
       id = data.tfe_project.default.id
     }
   }
-  description = "The ID of the 'Default Project' project."
+  description = "A map of the HCP Terraform projects with their 'id' as the only key. Only includes the 'Default Project' project."
 }
