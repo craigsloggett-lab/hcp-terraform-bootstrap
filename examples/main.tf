@@ -1,7 +1,9 @@
 module "terraform_tfe_bootstrap" {
   source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=v0.10.0"
 
+  # Override some default values.
   tfe_organization = {
-    email = "craig.sloggett@hashicorp.com"
+    session_timeout_minutes = 480
+    cost_estimation_enabled = true
   }
 }

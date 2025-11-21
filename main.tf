@@ -2,7 +2,7 @@
 
 resource "tfe_organization" "this" {
   name  = data.tfe_organization.this.name
-  email = var.tfe_organization.email
+  email = data.tfe_organization.this.email
 
   # The following configuration is set to sane defaults but can be overridden if needed.
   collaborator_auth_policy                                = var.tfe_organization.collaborator_auth_policy

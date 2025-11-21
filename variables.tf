@@ -1,7 +1,6 @@
 variable "tfe_organization" {
   description = "The default arguments for the resources being managed by this module, allowing users to override them."
   type = object({
-    email                                                   = string
     collaborator_auth_policy                                = optional(string, "password")
     owners_team_saml_role_id                                = optional(string, "owners")
     session_timeout_minutes                                 = optional(number, 20160)
