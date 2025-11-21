@@ -1,6 +1,14 @@
-# terraform-tfe-bootstrap
+<img alt="Terraform" src="https://www.datocms-assets.com/2885/1629941242-logo-terraform-main.svg" width="600px">
 
-A Terraform module to easily import the resources that come by default with every HCP Terraform organization.
+# HCP Terraform and Terraform Enterprise Bootstrap
+
+A Terraform module to easily bootstrap an HCP Terraform or TFE organization.
+
+The outputs of the module expose the necessary `id` values to be used in
+`import` blocks by the consuming root module.
+
+The resources in this module are expected to be imported as shown below in
+the examples.
 
 The module has the following `resource` blocks defined:
   - `tfe_organization.this`
@@ -11,9 +19,6 @@ The module has the following `resource` blocks defined:
 
 Each of these resources have all of their attributes exposed as values
 to be optionally overridden by the module input arguments.
-
-The outputs of the module expose the necessary `id` values to be used in
-`import` blocks by the consuming root module.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
