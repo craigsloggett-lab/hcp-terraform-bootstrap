@@ -5,22 +5,15 @@ A Terraform module to easily bootstrap an HCP Terraform or TFE organization.
 The outputs of the module expose the necessary `id` values to be used in
 `import` blocks by the consuming root module.
 
-The resources in this module are expected to be imported as shown below in
-the examples.
-
-The module has the following `resource` blocks defined:
-  - `tfe_organization.this`
-  - `tfe_organization_membership.this`
-  - `tfe_team.owners`
-  - `tfe_team_organization_members.owners`
-  - `tfe_project.default`
+The ([resources](#Resources)) in this module are expected to be imported as
+shown below in the examples.
 
 Each of these resources have all of their attributes exposed as values
 to be optionally overridden by the module input arguments.
 
 If you haven't setup an HCP Terraform organization yet, the
 ([Manual Onboarding Setup](#Manual-Onboarding-Setup)) section below
-walks you through the steps you can take to get started.
+walks you through the steps to get started.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
