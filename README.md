@@ -21,7 +21,7 @@ walks you through the steps to get started.
 ### main.tf
 ```hcl
 module "terraform_tfe_bootstrap" {
-  source = "../"
+  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=0.10.0"
 
   # Override some default values.
   tfe_organization = {

@@ -1,0 +1,3 @@
+run "validate" {
+  command = plan
+}

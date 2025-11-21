@@ -4,7 +4,7 @@ terraform {
 
     workspaces {
       project = "Administration"
-      name    = "hcp-terraform-test"
+      name    = "hcp-terraform-admin"
     }
   }
 }
