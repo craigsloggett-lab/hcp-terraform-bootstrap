@@ -5,14 +5,14 @@ A Terraform module to easily bootstrap an HCP Terraform or TFE organization.
 The outputs of the module expose the necessary `id` values to be used in
 `import` blocks by the consuming root module.
 
-The ([resources](#Resources)) in this module are expected to be imported as
+The [resources](#Resources) in this module are expected to be imported as
 shown below in the examples.
 
 Each of these resources have all of their attributes exposed as values
 to be optionally overridden by the module input arguments.
 
 If you haven't setup an HCP Terraform organization yet, the
-([Manual Onboarding Setup](#Manual-Onboarding-Setup)) section below
+[Manual Onboarding Setup](#Manual-Onboarding-Setup) section below
 walks you through the steps to get started.
 
 <!-- BEGIN_TF_DOCS -->
