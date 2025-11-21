@@ -1,5 +1,3 @@
-<img alt="Terraform" src="https://www.datocms-assets.com/2885/1629941242-logo-terraform-main.svg" width="600px">
-
 # HCP Terraform and Terraform Enterprise Bootstrap
 
 A Terraform module to easily bootstrap an HCP Terraform or TFE organization.
@@ -19,6 +17,10 @@ The module has the following `resource` blocks defined:
 
 Each of these resources have all of their attributes exposed as values
 to be optionally overridden by the module input arguments.
+
+If you haven't setup an HCP Terraform organization yet, the
+([Manual Onboarding Setup](#Manual-Onboarding-Setup)) section below
+walks you through the steps you can take to get started.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
