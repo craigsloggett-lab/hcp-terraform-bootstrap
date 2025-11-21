@@ -1,5 +1,5 @@
 module "terraform_tfe_bootstrap" {
-  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=0.10.0"
+  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=v0.10.1"
 
   # Override some default values.
   tfe_organization = {
