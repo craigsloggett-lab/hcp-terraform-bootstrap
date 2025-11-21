@@ -26,11 +26,6 @@ content: |-
 
   {{ .Outputs }}
 
-  ### outputs.tf
-  ```hcl
-  {{ include "outputs.tf" }}
-  ```
-
 output:
   file: README.md
   mode: inject
