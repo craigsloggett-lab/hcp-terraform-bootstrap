@@ -6,18 +6,14 @@ recursive:
 content: |-
   ## Usage
 
+  ### main.tf
   ```hcl
-  # main.tf
-
   {{ include "examples/main.tf" }}
+  ```
 
-  # imports.tf
-
+  ### imports.tf
+  ```hcl
   {{ include "examples/imports.tf" }}
-
-  # providers.tf
-
-  {{ include "examples/providers.tf" }}
   ```
   {{ .Requirements }}
 

@@ -2,12 +2,24 @@
 
 A Terraform module to easily import the resources that come by default with every HCP Terraform organization.
 
+The module has the following `resource` blocks defined:
+  - `tfe_organization.this`
+  - `tfe_organization_membership.this`
+  - `tfe_team.owners`
+  - `tfe_team_organization_members.owners`
+  - `tfe_project.default`
+
+Each of these resources have all of their attributes exposed as values
+to be optionally overridden by the module input arguments.
+
+The outputs of the module expose the necessary `id` values to be used in
+`import` blocks by the consuming root module.
+
 <!-- BEGIN_TF_DOCS -->
 ## Usage
 
+### main.tf
 ```hcl
-# main.tf
-
 module "terraform_tfe_bootstrap" {
   source = "git::https://github.com/craigsloggett-lab/hcp-terraform-bootstrap?ref=v0.10.0"
 
@@ -17,9 +29,10 @@ module "terraform_tfe_bootstrap" {
     cost_estimation_enabled = true
   }
 }
+```
 
-# imports.tf
-
+### imports.tf
+```hcl
 # The HCP Terraform organization.
 import {
   id = module.terraform_tfe_bootstrap.tfe_organizations.this.name
@@ -51,10 +64,6 @@ import {
   id = module.terraform_tfe_bootstrap.tfe_projects.default.id
   to = module.terraform_tfe_bootstrap.tfe_project.default
 }
-
-# providers.tf
-
-provider "tfe" {}
 ```
 ## Requirements
 
