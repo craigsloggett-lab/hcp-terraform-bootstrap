@@ -15,6 +15,7 @@ content: |-
   ```hcl
   {{ include "examples/imports.tf" }}
   ```
+
   {{ .Requirements }}
 
   {{ .Providers }}
@@ -24,6 +25,11 @@ content: |-
   {{ .Resources }}
 
   {{ .Outputs }}
+
+  ### outputs.tf
+  ```hcl
+  {{ include "outputs.tf" }}
+  ```
 
 output:
   file: README.md
