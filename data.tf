@@ -21,7 +21,7 @@ data "tfe_organization_members" "this" {
 data "tfe_organization_membership" "this" {
   for_each = toset(data.tfe_organization_members.this.members[*].organization_membership_id)
 
-  organization               = tfe_organization.this.name
+  organization               = data.tfe_organization.this.name
   organization_membership_id = each.value
 }
 
@@ -40,7 +40,7 @@ data "external" "owners_team_emails" {
   program = ["sh", "${path.module}/scripts/get_owners_team_emails.sh"]
 
   query = {
-    organization_name = tfe_organization.this.name
+    organization_name = data.tfe_organization.this.name
   }
 }
 
