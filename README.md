@@ -1,6 +1,6 @@
 # terraform-tfe-bootstrap
 
-A Terraform module to easily import (bootstrap) the resources that come by default with every HCP Terraform organization.
+A Terraform module to easily import the resources that come by default with every HCP Terraform organization.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
