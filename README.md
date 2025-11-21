@@ -80,6 +80,12 @@ import {
 | <a name="provider_external"></a> [external](#provider\_external) | 2.3.5 |
 | <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.71.0 |
 
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_tfe_organization"></a> [tfe\_organization](#input\_tfe\_organization) | The default arguments for the resources being managed by this module, allowing users to override them. | <pre>object({<br/>    collaborator_auth_policy                                = optional(string, "password")<br/>    owners_team_saml_role_id                                = optional(string, "owners")<br/>    session_timeout_minutes                                 = optional(number, 20160)<br/>    session_remember_minutes                                = optional(number, 20160)<br/>    enforce_hyok                                            = optional(bool, false)<br/>    cost_estimation_enabled                                 = optional(bool, false)<br/>    send_passing_statuses_for_untriggered_speculative_plans = optional(bool, false)<br/>    aggregated_commit_status_enabled                        = optional(bool, false)<br/>    speculative_plan_management_enabled                     = optional(bool, true)<br/>    assessments_enforced                                    = optional(bool, true)<br/>    allow_force_delete_workspaces                           = optional(bool, false)<br/>  })</pre> | n/a | yes |
+
 ## Resources
 
 | Name | Type |
@@ -96,6 +102,15 @@ import {
 | [tfe_organizations.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organizations) | data source |
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/project) | data source |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/team) | data source |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_tfe_organization_memberships"></a> [tfe\_organization\_memberships](#output\_tfe\_organization\_memberships) | . |
+| <a name="output_tfe_organizations"></a> [tfe\_organizations](#output\_tfe\_organizations) | . |
+| <a name="output_tfe_projects"></a> [tfe\_projects](#output\_tfe\_projects) | The ID of the 'Default Project' project. |
+| <a name="output_tfe_teams"></a> [tfe\_teams](#output\_tfe\_teams) | The ID of the 'owners' team. |
 <!-- END_TF_DOCS -->
 
 ## Manual Onboarding Setup

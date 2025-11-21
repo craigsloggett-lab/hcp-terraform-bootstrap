@@ -19,7 +19,11 @@ content: |-
 
   {{ .Providers }}
 
+  {{ .Inputs }}
+
   {{ .Resources }}
+
+  {{ .Outputs }}
 
 output:
   file: README.md
