@@ -1,42 +1,50 @@
-# These are expected to be imported by the consuming root module as showcased in the examples/ directory.
+# These are used by the module to ensure the resources
+# under management match what is configured in HCP Terraform.
 
-resource "tfe_organization" "this" {
-  name  = data.tfe_organization.this.name
-  email = data.tfe_organization.this.email
+data "tfe_organizations" "this" {}
 
-  # The following configuration is set to sane defaults but can be overridden if needed.
-  collaborator_auth_policy                                = var.tfe_organization.collaborator_auth_policy
-  owners_team_saml_role_id                                = var.tfe_organization.owners_team_saml_role_id
-  session_timeout_minutes                                 = var.tfe_organization.session_timeout_minutes
-  session_remember_minutes                                = var.tfe_organization.session_remember_minutes
-  enforce_hyok                                            = var.tfe_organization.enforce_hyok
-  cost_estimation_enabled                                 = var.tfe_organization.cost_estimation_enabled
-  send_passing_statuses_for_untriggered_speculative_plans = var.tfe_organization.send_passing_statuses_for_untriggered_speculative_plans
-  aggregated_commit_status_enabled                        = var.tfe_organization.aggregated_commit_status_enabled
-  speculative_plan_management_enabled                     = var.tfe_organization.speculative_plan_management_enabled
-  assessments_enforced                                    = var.tfe_organization.assessments_enforced
-  allow_force_delete_workspaces                           = var.tfe_organization.allow_force_delete_workspaces
+data "tfe_organization" "this" {
+  name = data.tfe_organizations.this.names[0]
+
+  lifecycle {
+    precondition {
+      condition     = length(data.tfe_organizations.this.names) == 1
+      error_message = "Expected exactly one TFE organization for this token, but found ${length(data.tfe_organizations.this.names)}."
+    }
+  }
 }
 
-resource "tfe_organization_membership" "this" {
-  for_each = data.tfe_organization_membership.this
-
-  organization = tfe_organization.this.name
-  email        = each.value.email
+data "tfe_organization_members" "this" {
+  organization = data.tfe_organization.this.name
 }
 
-resource "tfe_team" "owners" {
-  name         = data.tfe_team.owners.name
-  organization = tfe_organization.this.name
+data "tfe_organization_membership" "this" {
+  for_each = toset(data.tfe_organization_members.this.members[*].organization_membership_id)
+
+  organization               = data.tfe_organization.this.name
+  organization_membership_id = each.value
 }
 
-resource "tfe_team_organization_members" "owners" {
-  team_id                     = tfe_team.owners.id
-  organization_membership_ids = local.owners_team_organization_membership_ids
+data "tfe_team" "owners" {
+  name         = "owners"
+  organization = data.tfe_organization.this.name
 }
 
-resource "tfe_project" "default" {
-  name         = data.tfe_project.default.name
-  organization = tfe_organization.this.name
-  description  = "The default project for new workspaces."
+# This external data source will query the HCP Terraform API for a list of
+# emails for members (users) that are in the "owners" team. It will filter
+# service accounts to match the behaviour of the tfe_team_organization_members
+# resource:
+#
+# https://github.com/hashicorp/terraform-provider-tfe/commit/51c13cc01424fad0d7521022f248c4d3484c0c6f
+data "external" "owners_team_emails" {
+  program = ["sh", "${path.module}/scripts/get_owners_team_emails.sh"]
+
+  query = {
+    organization_name = data.tfe_organization.this.name
+  }
+}
+
+data "tfe_project" "default" {
+  name         = "Default Project"
+  organization = data.tfe_organization.this.name
 }
