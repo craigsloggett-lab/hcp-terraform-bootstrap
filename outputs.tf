@@ -16,11 +16,8 @@ output "tfe_organization_membership" {
 output "tfe_team" {
   value = {
     owners = {
-      id = data.tfe_team.owners.id
-      organization_membership_ids = [
-        for id, membership in data.tfe_organization_membership.this : membership.organization_membership_id
-        if contains(local.owners_team_emails, membership.email)
-      ]
+      id                          = data.tfe_team.owners.id
+      organization_membership_ids = local.owners_team_organization_membership_ids
     }
   }
   description = "A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team."
