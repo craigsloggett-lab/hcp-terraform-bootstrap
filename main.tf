@@ -1,6 +1,3 @@
-# These are used by the module to ensure the resources
-# under management match what is configured in HCP Terraform.
-
 data "tfe_organizations" "this" {}
 
 data "tfe_organization" "this" {
