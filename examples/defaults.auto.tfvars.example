@@ -1,0 +1,4 @@
+# Any file ending in .auto.tfvars is automatically loaded in lexicographical
+# order, enabling the ability to split variable definitions into multiple
+# files.
+hcp_terraform_organization_name = "craigsloggett-lab"
