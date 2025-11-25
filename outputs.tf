@@ -1,8 +1,9 @@
 output "tfe_organization" {
   value = {
     this = {
-      id   = data.tfe_organization.this.id
-      name = data.tfe_organization.this.name
+      id    = data.tfe_organization.this.id
+      name  = data.tfe_organization.this.name
+      email = data.tfe_organization.this.email
     }
   }
   description = "A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization."
