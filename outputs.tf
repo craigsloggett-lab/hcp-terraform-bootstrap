@@ -8,6 +8,11 @@ output "tfe_organization" {
   description = "A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization."
 }
 
+output "tfe_organization_membership" {
+  value       = data.tfe_organiation_membership.this
+  description = "A list containing details about the HCP Terraform organization members."
+}
+
 output "tfe_organization_members" {
   value       = data.tfe_organization_members.this
   description = "A map of the HCP Terraform organization members."
