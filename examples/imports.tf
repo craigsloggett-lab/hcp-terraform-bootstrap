@@ -1,31 +1,31 @@
 # The HCP Terraform organization.
 import {
-  id = module.terraform_tfe_bootstrap.tfe_organizations.this.name
-  to = module.terraform_tfe_bootstrap.tfe_organization.this
+  id = module.bootstrap.tfe_organization.this.name
+  to = tfe_organization.this
 }
 
 # The members of the HCP Terraform organization.
 import {
-  for_each = module.terraform_tfe_bootstrap.tfe_organization_memberships
+  for_each = module.bootstrap.tfe_organization_membership
 
   id = each.key
-  to = module.terraform_tfe_bootstrap.tfe_organization_membership.this[each.key]
+  to = tfe_organization_membership.this[each.key]
 }
 
 # The "owners" team.
 import {
-  id = "${module.terraform_tfe_bootstrap.tfe_organizations.this.name}/${module.terraform_tfe_bootstrap.tfe_teams.owners.id}"
-  to = module.terraform_tfe_bootstrap.tfe_team.owners
+  id = "${module.bootstrap.tfe_organization.this.name}/${module.bootstrap.tfe_team.owners.id}"
+  to = tfe_team.owners
 }
 
 # The members of the "owners" team.
 import {
-  id = module.terraform_tfe_bootstrap.tfe_teams.owners.id
-  to = module.terraform_tfe_bootstrap.tfe_team_organization_members.owners
+  id = module.bootstrap.tfe_team.owners.id
+  to = tfe_team_organization_members.owners
 }
 
 # The "Default Project" project.
 import {
-  id = module.terraform_tfe_bootstrap.tfe_projects.default.id
-  to = module.terraform_tfe_bootstrap.tfe_project.default
+  id = module.bootstrap.tfe_project.default.id
+  to = tfe_project.default
 }

@@ -2,33 +2,50 @@
 
 A Terraform module to easily bootstrap an HCP Terraform or TFE organization.
 
-The outputs of the module expose the necessary `id` values to be used in
-`import` blocks by the consuming root module.
+The outputs of the module expose the necessary `id` values to be used in `import` blocks by the consuming root module. Each output is named after the `tfe` provider resource it is discovering and they are generally maps with the name of the resource as the `key` and an `id` or other relevant data as the values.
 
-The [resources](#Resources) in this module are expected to be imported as
-shown below in the examples.
+The value this module provides is discovering and gathering all of the resources configured in HCP Terraform and exposing the relevant `id`s needed to bring them under management with `import`.
 
-Each of these resources have all of their attributes exposed as values
-to be optionally overridden by the module input arguments.
+This is similar in concept to the `query` functionality introduced in recent versions of `terraform` however, it doesn't require the `tfe` provider to be updated with `list` resources for every resource and will work with older Terraform versions (`v1.5.0` and later if the consumer uses `import` blocks).
 
-If you haven't setup an HCP Terraform organization yet, the
-[Manual Onboarding Setup](#Manual-Onboarding-Setup) section below
-walks you through the steps to get started.
+Long term, the aim is to implement resource discovery using list blocks as the feature and provider matures, giving users the ability to both discover unmanaged resources and generate the code to manage them.
+
+If you haven't setup an HCP Terraform organization yet, the [Manual Onboarding Setup](#Manual-Onboarding-Setup) section below walks you through the steps to get started.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
 
 ### main.tf
 ```hcl
-module "terraform_tfe_bootstrap" {
-  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=v0.10.2"
+module "bootstrap" {
+  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=v0.11.0"
+}
 
-  # Optionally, override some or all of the default values
-  # for the `tfe_organization` resource.
-  tfe_organization = {
-    session_timeout_minutes = 480
-    cost_estimation_enabled = true
-  }
+resource "tfe_organization" "this" {
+  name  = module.bootstrap.tfe_organization.this.name
+  email = module.bootstrap.tfe_organization.this.email
+
+  assessments_enforced = true
+}
+
+resource "tfe_organization_membership" "this" {
+  for_each = module.bootstrap.tfe_organization_membership
+
+  email = each.value.email
+}
+
+resource "tfe_team" "owners" {
+  name = "owners"
+}
+
+resource "tfe_team_organization_members" "owners" {
+  team_id                     = tfe_team.owners.id
+  organization_membership_ids = module.bootstrap.tfe_team.owners.organization_membership_ids
+}
+
+resource "tfe_project" "default" {
+  name        = "Default Project"
+  description = "The default project for new workspaces."
 }
 ```
 
@@ -36,34 +53,34 @@ module "terraform_tfe_bootstrap" {
 ```hcl
 # The HCP Terraform organization.
 import {
-  id = module.terraform_tfe_bootstrap.tfe_organizations.this.name
-  to = module.terraform_tfe_bootstrap.tfe_organization.this
+  id = module.bootstrap.tfe_organization.this.name
+  to = tfe_organization.this
 }
 
 # The members of the HCP Terraform organization.
 import {
-  for_each = module.terraform_tfe_bootstrap.tfe_organization_memberships
+  for_each = module.bootstrap.tfe_organization_membership
 
   id = each.key
-  to = module.terraform_tfe_bootstrap.tfe_organization_membership.this[each.key]
+  to = tfe_organization_membership.this[each.key]
 }
 
 # The "owners" team.
 import {
-  id = "${module.terraform_tfe_bootstrap.tfe_organizations.this.name}/${module.terraform_tfe_bootstrap.tfe_teams.owners.id}"
-  to = module.terraform_tfe_bootstrap.tfe_team.owners
+  id = "${module.bootstrap.tfe_organization.this.name}/${module.bootstrap.tfe_team.owners.id}"
+  to = tfe_team.owners
 }
 
 # The members of the "owners" team.
 import {
-  id = module.terraform_tfe_bootstrap.tfe_teams.owners.id
-  to = module.terraform_tfe_bootstrap.tfe_team_organization_members.owners
+  id = module.bootstrap.tfe_team.owners.id
+  to = tfe_team_organization_members.owners
 }
 
 # The "Default Project" project.
 import {
-  id = module.terraform_tfe_bootstrap.tfe_projects.default.id
-  to = module.terraform_tfe_bootstrap.tfe_project.default
+  id = module.bootstrap.tfe_project.default.id
+  to = tfe_project.default
 }
 ```
 
@@ -84,19 +101,12 @@ import {
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_tfe_organization"></a> [tfe\_organization](#input\_tfe\_organization) | The default arguments for the resources being managed by this module, allowing users to override them. | <pre>object({<br/>    collaborator_auth_policy                                = optional(string, "password")<br/>    owners_team_saml_role_id                                = optional(string, "")<br/>    session_timeout_minutes                                 = optional(number, 0)<br/>    session_remember_minutes                                = optional(number, 0)<br/>    enforce_hyok                                            = optional(bool, false)<br/>    cost_estimation_enabled                                 = optional(bool, false)<br/>    send_passing_statuses_for_untriggered_speculative_plans = optional(bool, false)<br/>    aggregated_commit_status_enabled                        = optional(bool, false)<br/>    speculative_plan_management_enabled                     = optional(bool, true)<br/>    assessments_enforced                                    = optional(bool, true)<br/>    allow_force_delete_workspaces                           = optional(bool, false)<br/>  })</pre> | `{}` | no |
+No inputs.
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization) | resource |
-| [tfe_organization_membership.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/organization_membership) | resource |
-| [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/project) | resource |
-| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team) | resource |
-| [tfe_team_organization_members.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/resources/team_organization_members) | resource |
 | [external_external.owners_team_emails](https://registry.terraform.io/providers/hashicorp/external/2.3.5/docs/data-sources/external) | data source |
 | [tfe_organization.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization) | data source |
 | [tfe_organization_members.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/organization_members) | data source |
@@ -109,10 +119,10 @@ import {
 
 | Name | Description |
 |------|-------------|
-| <a name="output_tfe_organization_memberships"></a> [tfe\_organization\_memberships](#output\_tfe\_organization\_memberships) | A map of the HCP Terraform organization members, intended to be iterated over to discover users. |
-| <a name="output_tfe_organizations"></a> [tfe\_organizations](#output\_tfe\_organizations) | A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization. |
-| <a name="output_tfe_projects"></a> [tfe\_projects](#output\_tfe\_projects) | A map of the HCP Terraform projects with their 'id' as the only key. Only includes the 'Default Project' project. |
-| <a name="output_tfe_teams"></a> [tfe\_teams](#output\_tfe\_teams) | A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team. |
+| <a name="output_tfe_organization"></a> [tfe\_organization](#output\_tfe\_organization) | A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization. |
+| <a name="output_tfe_organization_membership"></a> [tfe\_organization\_membership](#output\_tfe\_organization\_membership) | A list containing details about the HCP Terraform organization members. |
+| <a name="output_tfe_project"></a> [tfe\_project](#output\_tfe\_project) | A map of the HCP Terraform projects with their 'id' as the only key. Only includes the 'Default Project' project. |
+| <a name="output_tfe_team"></a> [tfe\_team](#output\_tfe\_team) | A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team. |
 <!-- END_TF_DOCS -->
 
 ## Manual Onboarding Setup

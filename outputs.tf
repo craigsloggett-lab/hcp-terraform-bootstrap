@@ -1,28 +1,30 @@
-output "tfe_organizations" {
+output "tfe_organization" {
   value = {
     this = {
-      id   = data.tfe_organization.this.id
-      name = data.tfe_organization.this.name
+      id    = data.tfe_organization.this.id
+      name  = data.tfe_organization.this.name
+      email = data.tfe_organization.this.email
     }
   }
   description = "A map of the HCP Terraform organizations details including 'id' and 'name'. Only inludes 'this' organization."
 }
 
-output "tfe_organization_memberships" {
+output "tfe_organization_membership" {
   value       = data.tfe_organization_membership.this
-  description = "A map of the HCP Terraform organization members, intended to be iterated over to discover users."
+  description = "A list containing details about the HCP Terraform organization members."
 }
 
-output "tfe_teams" {
+output "tfe_team" {
   value = {
     owners = {
-      id = data.tfe_team.owners.id
+      id                          = data.tfe_team.owners.id
+      organization_membership_ids = local.owners_team_organization_membership_ids
     }
   }
   description = "A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team."
 }
 
-output "tfe_projects" {
+output "tfe_project" {
   value = {
     default = {
       id = data.tfe_project.default.id
