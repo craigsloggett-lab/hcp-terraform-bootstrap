@@ -9,7 +9,7 @@ output "tfe_organization" {
 }
 
 output "tfe_organization_membership" {
-  value       = data.tfe_organiation_membership.this
+  value       = data.tfe_organization_membership.this
   description = "A list containing details about the HCP Terraform organization members."
 }
 
