@@ -12,3 +12,8 @@ data "tfe_variable_set" "this" {
   for_each = local.variable_set_names
   name     = each.key
 }
+
+data "tfe_variables" "this" {
+  for_each        = local.variable_set_names
+  variable_set_id = data.tfe_variable_set.this[each.key].id
+}

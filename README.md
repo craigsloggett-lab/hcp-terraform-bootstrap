@@ -116,6 +116,7 @@ No inputs.
 | [tfe_project.default](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/project) | data source |
 | [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/team) | data source |
 | [tfe_variable_set.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/variable_set) | data source |
+| [tfe_variables.this](https://registry.terraform.io/providers/hashicorp/tfe/0.71.0/docs/data-sources/variables) | data source |
 
 ## Outputs
 
