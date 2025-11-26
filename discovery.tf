@@ -12,7 +12,3 @@ data "tfe_variable_set" "this" {
   for_each = local.variable_set_names
   name     = each.key
 }
-
-data "tfe_variable_set" "aws" {
-  id = "varset-V3aKs1pXjHJWeEHk"
-}

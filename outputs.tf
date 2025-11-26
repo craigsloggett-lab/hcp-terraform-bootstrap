@@ -39,6 +39,6 @@ output "tfe_variable_set" {
 }
 
 output "tfe_variable_set_testing" {
-  value       = data.tfe_variable_set.aws
+  value       = local.variable_sets
   description = "A map of variable sets and their details as configured in the HCP Terraform organization."
 }

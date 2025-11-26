@@ -13,4 +13,9 @@ locals {
   # this local variable does the jsondecode in one spot and converts it
   # to a "set" for convenience when used with "for_each".
   variable_set_names = toset(jsondecode(data.external.variable_set_names.result.names))
+
+  variable_sets = {
+    for name in local.variable_set_names :
+    data.tfe_variable_set.this[name].id => data.tfe_variable_set.this[name]
+  }
 }

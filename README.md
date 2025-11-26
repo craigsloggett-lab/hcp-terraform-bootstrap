@@ -126,6 +126,7 @@ No inputs.
 | <a name="output_tfe_project"></a> [tfe\_project](#output\_tfe\_project) | A map of the HCP Terraform projects with their 'id' as the only key. Only includes the 'Default Project' project. |
 | <a name="output_tfe_team"></a> [tfe\_team](#output\_tfe\_team) | A map of the HCP Terraform teams with their 'id' as the only key. Only includes the 'owners' team. |
 | <a name="output_tfe_variable_set"></a> [tfe\_variable\_set](#output\_tfe\_variable\_set) | A map of variable sets and their details as configured in the HCP Terraform organization. |
+| <a name="output_tfe_variable_set_testing"></a> [tfe\_variable\_set\_testing](#output\_tfe\_variable\_set\_testing) | A map of variable sets and their details as configured in the HCP Terraform organization. |
 <!-- END_TF_DOCS -->
 
 ## Manual Onboarding Setup
