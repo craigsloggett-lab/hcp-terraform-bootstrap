@@ -9,8 +9,8 @@
 # as defined in the provider documentation.
 #
 # Usage:
-# Ensure `TFE_TOKEN` is set to a "User Token" for a user that is part of the
-# _owners_ team before running:
+# Ensure `TFE_TOKEN` is set to a "Team Token" for the _owners_ team before
+# running:
 # $ export TFE_TOKEN="your-token-here"
 #
 # Then add the following Terraform code to your root module:

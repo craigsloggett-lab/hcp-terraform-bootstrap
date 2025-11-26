@@ -32,3 +32,8 @@ output "tfe_project" {
   }
   description = "A map of the HCP Terraform projects with their 'id' as the only key. Only includes the 'Default Project' project."
 }
+
+output "tfe_variable_set" {
+  value       = local.variable_sets
+  description = "A map of variable sets and their details as configured in the HCP Terraform organization."
+}

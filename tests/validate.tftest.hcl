@@ -1,3 +1,5 @@
-run "validate" {
-  command = plan
+provider "tfe" {
+  organization = "craigsloggett-lab"
 }
+
+run "validate" {}
