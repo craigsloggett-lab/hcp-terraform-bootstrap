@@ -18,7 +18,7 @@ If you haven't setup an HCP Terraform organization yet, the [Manual Onboarding S
 ### main.tf
 ```hcl
 module "bootstrap" {
-  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=v0.11.0"
+  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=add-variable-sets"
 }
 
 resource "tfe_organization" "this" {
