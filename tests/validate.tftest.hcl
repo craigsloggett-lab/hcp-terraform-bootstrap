@@ -1,3 +1,1 @@
-run "validate" {
-  command = plan
-}
+run "validate" {}
