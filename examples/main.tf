@@ -1,5 +1,5 @@
 module "bootstrap" {
-  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=add-variable-sets"
+  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=v0.12.0"
 }
 
 resource "tfe_organization" "this" {
