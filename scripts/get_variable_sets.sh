@@ -46,7 +46,18 @@ main() {
   variable_sets_json="$(curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/varsets)"
 
   printf '%s\n' "${variable_sets_json}" |
-    jq '( .data | map ( { key: .id, value: { id: .id, name: .attributes.name } } ) | from_entries )'
+    jq '(
+      .data |
+        map ({
+          key: .id,
+          value: {
+            id: .id,
+            name: .attributes.name
+          }
+        }) |
+      from_entries |
+      tojson
+    )'
 }
 
 main "$@"
