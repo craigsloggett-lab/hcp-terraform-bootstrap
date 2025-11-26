@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# get_variable_sets - Get the variable sets configured in an HCP Terraform
-#                     organization.
+# get_variable_set_names - Get the names of the variable sets configured in an
+#                          HCP Terraform organization.
 #
 # This script queries the HCP Terraform API to retrieve the variable sets
 # configured in an organization. It is expected to be used with the external
@@ -45,19 +45,16 @@ main() {
 
   variable_sets_json="$(curl "$@" https://app.terraform.io/api/v2/organizations/"${organization_name}"/varsets)"
 
-  printf '%s\n' "${variable_sets_json}" |
-    jq '(
-      .data |
-        map ({
-          key: .id,
-          value: {
-            id: .id,
-            name: .attributes.name
-          }
-        }) |
-      from_entries |
-      tojson
-    )'
+  variable_set_names="$(
+    printf '%s\n' "${variable_sets_json}" |
+      jq -r '.data[].attributes.name' |
+      while read -r variable_set_name; do
+        printf '%s\n' "${variable_set_name}"
+      done |
+      jq --raw-input --null-input '{"names": ( [inputs] | unique | tojson )}'
+  )"
+
+  printf '%s\n' "${variable_set_names}"
 }
 
 main "$@"

@@ -34,6 +34,6 @@ output "tfe_project" {
 }
 
 output "tfe_variable_set" {
-  value       = data.external.variable_sets
+  value       = data.tfe_variable_set[*].this
   description = "A map of variable sets and their details as configured in the HCP Terraform organization."
 }
