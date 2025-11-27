@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+    - main
 
 permissions:
   contents: write
@@ -13,18 +13,8 @@ permissions:
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-24.04
-    # Skip running release workflow on forks
-    if: github.repository_owner == 'craigsloggett-lab'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
-      - name: Release
-        uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
-        with:
-          semantic_version: 23.0.5
-          extra_plugins: |
-            @semantic-release/git@10.0.1
-            conventional-changelog-conventionalcommits@7.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@add-reusable-workflows
+    with:
+      hcp-terraform-organization: craigsloggett-lab
+    secrets:
+      hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
