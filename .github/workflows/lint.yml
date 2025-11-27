@@ -8,4 +8,4 @@ permissions:
 jobs:
   lint:
     name: Terraform Module # All downstream jobs are nested within this job in the GitHub UI.
-    uses: craigsloggett-lab/.github/workflows/lint-terraform.yml@main
+    uses: craigsloggett-lab/.github/.github/workflows/lint-terraform.yml@main
