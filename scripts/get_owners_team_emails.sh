@@ -20,7 +20,6 @@
 #
 # Dependencies:
 #   - jq (for JSON parsing)
-#   - terraform (for formatting output)
 #   - curl (for querying the API)
 main() {
   set -eu
