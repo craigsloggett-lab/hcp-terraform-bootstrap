@@ -15,10 +15,6 @@ jobs:
   release:
     name: Release
     uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform.yml@restructure-workflows
-    with:
-      hcp-terraform-organization: craigsloggett-lab
-    secrets:
-      hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
   publish:
     name: Publish
     needs: release
