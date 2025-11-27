@@ -23,3 +23,4 @@ jobs:
         output_file_path: console
         quiet: true
         check: CKV_AWS_1 # Use either a defined list of checks, or skip irrelevant checks with `skip_check`.
+        download_external_modules: true
