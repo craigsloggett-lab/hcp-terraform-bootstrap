@@ -1,0 +1,17 @@
+name: Publish
+
+on: pull_request
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  publish:
+    name: Publish
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@add-reusable-workflows
+    with:
+      hcp-terraform-organizatio: craigsloggett-lab
+    secrets:
+      hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
