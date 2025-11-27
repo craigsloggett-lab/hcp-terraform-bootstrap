@@ -13,7 +13,7 @@ permissions:
 jobs:
   release:
     name: Release
-    uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform-with-publish.yml@add-reusable-workflows
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform-with-publish.yml@main
     with:
       hcp-terraform-organization: craigsloggett-lab
     secrets:
