@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+  pull_request:
 
 permissions:
   contents: write
@@ -13,8 +14,18 @@ permissions:
 jobs:
   release:
     name: Release
-    uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform-with-publish.yml@main
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform.yml@restructure-workflows
     with:
       hcp-terraform-organization: craigsloggett-lab
+    secrets:
+      hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
+  publish:
+    name: Publish
+    needs: release
+    if: needs.release.outputs.new-release-published
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@restructure-workflows
+    with:
+      new-release-version: ${{ needs.release.outputs.new-release-version }}
+      hcp-terraform-organization-name: craigsloggett-lab
     secrets:
       hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
