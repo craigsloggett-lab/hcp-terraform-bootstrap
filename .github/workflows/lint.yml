@@ -1,4 +1,4 @@
-name: Checks
+name: Lint
 
 on: pull_request
 
@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   lint:
-    name: Lint
+    name: Terraform
     uses: craigsloggett-lab/.github/.github/workflows/reusable-lint-terraform.yml@main
     #  actionlint:
     #    name: GitHub Actions
