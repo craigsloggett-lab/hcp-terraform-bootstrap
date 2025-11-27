@@ -12,10 +12,10 @@ permissions:
 
 jobs:
   release:
-    name: Release
+    name: GitHub
     uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform.yml@main
   publish:
-    name: Publish
+    name: HCP Terraform
     needs: release
     if: ${{ needs.release.outputs.new-release-published == true }}
     uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@main
