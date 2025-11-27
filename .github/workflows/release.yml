@@ -13,8 +13,10 @@ permissions:
 
 jobs:
   release:
+    name: Release
     uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform.yml@restructure-workflows
   publish:
+    name: Publish
     needs: release
     if: ${{ needs.release.outputs.new-release-published == true }}
     uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@restructure-workflows
