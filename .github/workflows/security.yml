@@ -1,4 +1,4 @@
-name: Security Checks
+name: Security
 
 on: pull_request
 
@@ -6,16 +6,21 @@ permissions:
   contents: read
 
 jobs:
-  security:
-    name: Security Checks
+  checkov:
+    name: Checkov
     runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Checkov
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          output_format: cli
-          output_file_path: console
-          quiet: true
-          skip_check: CKV_AWS_119,CKV_AWS_28,CKV2_AWS_61,CKV_AWS_144,CKV2_AWS_62,CKV2_AWS_16,CKV_AWS_18,CKV2_AWS_67,CKV2_AWS_28,CKV_TF_1,CKV_TF_2,CKV_AWS_153,CKV_AWS_88,CKV_AWS_91,CKV_AWS_150,CKV_AWS_338,CKV_AWS_293,CKV_AWS_161,CKV_AWS_118,CKV_AWS_191
+    - name: Checkout
+      uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+    - name: Setup Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+      with:
+        python-version: 3.14.0
+    - name: Checkov
+      uses: bridgecrewio/checkov-action@02a4c5d6a02367e5ea493c34c26b094302fd3f61 # v12.3075.0
+      with:
+        output_format: cli
+        output_file_path: console
+        quiet: true
+        check: CKV_AWS_1 # Use either a defined list of checks, or skip irrelevant checks with `skip_check`.
+        download_external_modules: true
