@@ -12,6 +12,6 @@ jobs:
     name: Publish
     uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@add-reusable-workflows
     with:
-      hcp-terraform-organizatio: craigsloggett-lab
+      hcp-terraform-organization: craigsloggett-lab
     secrets:
       hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
