@@ -13,8 +13,14 @@ permissions:
 jobs:
   release:
     name: Release
-    uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform-with-publish.yml@main
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-release-terraform.yml@main
+  publish:
+    name: Publish
+    needs: release
+    if: ${{ needs.release.outputs.new-release-published == true }}
+    uses: craigsloggett-lab/.github/.github/workflows/reusable-publish-terraform.yml@main
     with:
-      hcp-terraform-organization: craigsloggett-lab
+      new-release-version: ${{ needs.release.outputs.new-release-version }}
+      hcp-terraform-organization-name: craigsloggett-lab
     secrets:
       hcp-terraform-api-token: ${{ secrets.TF_TOKEN_app_terraform_io }}
