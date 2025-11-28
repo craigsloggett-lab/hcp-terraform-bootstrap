@@ -169,15 +169,30 @@ The following steps can be used as a guide when onboarding a new repository.
 #### VCS Integration with GitHub
 
 In order to scope the list of repositories shown to users when creating a VCS backed workspace,
-it is necessary to create and install an OAuth App in your GitHub organization. Using a service
-account is not strictly required but is recommended in order to ensure _only_ repositories for
-an organization are listed -- and not those belonging to a user.
+it is necessary to either create and install an OAuth App in your GitHub organization or use a
+fine-grained personal access token attached to a service account. Using a service account is
+not strictly required but is recommended in order to ensure _only_ repositories for an
+organization are listed -- and not those belonging to a user.
+
+This steers away from the standard advice of using the pre-installed GitHub App that comes with
+HCP Terraform. The reason for this is because of the lack of control for the user experience
+as mentioned.
+
+The following documents what is needed to setup an OAuth App in your GitHub Organization.
 
 ##### Creating a GitHub Service Account
 
 Create a GitHub service account by navigating to https://github.com/signup and creating a new
 user with a unique email and username. This user is like any other human user, but will be
 configured with a private profile and own no repositories.
+
+When providing permissions for anything accessing the GitHub organization, the following are
+required for HCP Terraform's VCS Provider:
+
+- Commit statuses: Read and write
+- Contents: Read-only
+- Metadata: Read-only
+- Webhooks: Read and write
 
 ##### Add the Service Account to the GitHub Organization
 
