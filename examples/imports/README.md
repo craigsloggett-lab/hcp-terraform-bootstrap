@@ -7,8 +7,8 @@ provider "tfe" {
 }
 
 # Use the module like a data source to get details about the resources in your organization.
-module "bootstrap" {
-  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-bootstrap?ref=vx.x.x"
+module "discovery" {
+  source = "git::https://github.com/craigsloggett-lab/terraform-tfe-discovery?ref=vx.x.x"
 }
 
 # Using the outputs of the module, the default resources
@@ -18,13 +18,13 @@ module "bootstrap" {
 # HCP Terraform Organization
 
 import {
-  id = module.bootstrap.tfe_organization.this.name
+  id = module.discovery.tfe_organization.this.name
   to = tfe_organization.this
 }
 
 resource "tfe_organization" "this" {
-  name  = module.bootstrap.tfe_organization.this.name
-  email = module.bootstrap.tfe_organization.this.email
+  name  = module.discovery.tfe_organization.this.name
+  email = module.discovery.tfe_organization.this.email
 
   assessments_enforced = true
 }
@@ -32,14 +32,14 @@ resource "tfe_organization" "this" {
 # HCP Terraform Organization Members (Users)
 
 import {
-  for_each = module.bootstrap.tfe_organization_membership
+  for_each = module.discovery.tfe_organization_membership
 
   id = each.key
   to = tfe_organization_membership.this[each.key]
 }
 
 resource "tfe_organization_membership" "this" {
-  for_each = module.bootstrap.tfe_organization_membership
+  for_each = module.discovery.tfe_organization_membership
 
   email = each.value.email
 }
@@ -47,7 +47,7 @@ resource "tfe_organization_membership" "this" {
 # The "owners" Team
 
 import {
-  id = "${module.bootstrap.tfe_organization.this.name}/${module.bootstrap.tfe_team.owners.id}"
+  id = "${module.discovery.tfe_organization.this.name}/${module.discovery.tfe_team.owners.id}"
   to = tfe_team.owners
 }
 
@@ -58,19 +58,19 @@ resource "tfe_team" "owners" {
 # The "owners" Team Members (Users)
 
 import {
-  id = module.bootstrap.tfe_team.owners.id
+  id = module.discovery.tfe_team.owners.id
   to = tfe_team_organization_members.owners
 }
 
 resource "tfe_team_organization_members" "owners" {
   team_id                     = tfe_team.owners.id
-  organization_membership_ids = module.bootstrap.tfe_team.owners.organization_membership_ids
+  organization_membership_ids = module.discovery.tfe_team.owners.organization_membership_ids
 }
 
 # The "Default Project" Project
 
 import {
-  id = module.bootstrap.tfe_project.default.id
+  id = module.discovery.tfe_project.default.id
   to = tfe_project.default
 }
 
