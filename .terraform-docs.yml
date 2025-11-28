@@ -8,12 +8,7 @@ content: |-
 
   ### main.tf
   ```hcl
-  {{ include "examples/main.tf" }}
-  ```
-
-  ### imports.tf
-  ```hcl
-  {{ include "examples/imports.tf" }}
+  {{ include "examples/imports/main.tf" }}
   ```
 
   {{ .Requirements }}
