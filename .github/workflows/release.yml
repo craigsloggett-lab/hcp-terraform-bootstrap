@@ -17,7 +17,7 @@ jobs:
   publish:
     name: HCP Terraform
     needs: release
-    if: ${{ needs.release.outputs.new-release-published == true }}
+    if: ${{ needs.release.outputs.new-release-published == 'true' }}
     uses: craigsloggett-lab/.github/.github/workflows/publish-terraform.yml@main
     with:
       new-release-version: ${{ needs.release.outputs.new-release-version }}
